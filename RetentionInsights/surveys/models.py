@@ -24,6 +24,7 @@ class Factor(models.Model):
     factorName = models.CharField(max_length=200)
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
     description = models.TextField()
+    positive = models.BooleanField(default=True)
     
     #Display name
     def __str__(self):
