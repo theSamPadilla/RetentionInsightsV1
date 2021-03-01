@@ -24,7 +24,6 @@ class Factor(models.Model):
     factorName = models.CharField(max_length=200)
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
     description = models.TextField()
-    positive = models.BooleanField(default=True)
     
     #Display name
     def __str__(self):
@@ -53,6 +52,7 @@ class Question_Text(models.Model):
     questionTextID = models.IntegerField(primary_key=True)
     factorID = models.ForeignKey(Factor, on_delete=models.CASCADE)
     text = models.TextField()
+    positive = models.BooleanField(default=True)
     QUESTIONS_TYPE = [
         ('S6', 'Slider 1 to 6'),
         ('Bool', 'Boolean'),
