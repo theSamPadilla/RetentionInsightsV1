@@ -19,7 +19,7 @@ class User(models.Model):
 
     #Display name
     def __str__(self):
-        return 'User ' + str(self.userID)
+        return 'User ' + str(self.userID) + " (" + str(self.firstName) + ")"
 
 class Factor(models.Model):
     factorID = models.IntegerField(primary_key=True)
