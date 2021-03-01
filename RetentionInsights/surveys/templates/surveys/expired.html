@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Expired Survey</title>
+
+    <!-- Loading Bootstrap, JS, and Popper -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %} "></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Template CSS Loads -->
+    <link rel="stylesheet" type="text/css" href="{% static 'template/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/util.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/main.css' %}">
+    
+  </head>
+  
+  <body>
+
+  <div class="main-container-wrapper100 expiredContainer">
+      <!-- Expired Info -->
+      <div class="container-contact100 text-center vertical-center" id="userContainer">
+        <div class="wrap-expired">
+          <h1 class="contact100-form-title">
+            Expired Survey!
+          </h1>
+          <p>
+            Sorry {{user.firstName}}, this survey expired on: </br>
+            <span style="font-weight: bold;"> {{expirationDate}} </span>
+          </p>
+          <p class="center-paragraph">
+            Keep an eye on your text messages for the next survey link!
+          </p>
+
+          <hr class="footer-hr">
+          <p class="footer" > Email any questions to:
+            <a href="mailto: scp002@morningside.edu" style="font-style: italic">scp002@morningside.edu <a>
+          </p>
+
+        </div>
+      </div>  <!--End Expired Info-->
+      
+    </div> <!-- Ends Main Container -->  
+  </body>
+</html>

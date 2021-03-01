@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Survey Recorded</title>
+
+    <!-- Loading Bootstrap, JS, and Popper -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %} "></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Template CSS Loads -->
+    <link rel="stylesheet" type="text/css" href="{% static 'template/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/util.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/main.css' %}">
+    
+  </head>
+  
+  <body>
+    {% if image != None %} <!-- Drink unlocked -->
+      <!-- Containers -->
+      <div class="main-container-wrapper100 rewards-expiredContainer">
+        <div class="container-contact100 text-center rewards-vertical-center" id="userContainer">
+          <div class="wrap-contact100" id="userWrapper">
+            
+            <!-- Content -->
+            <h1 class="contact100-form-title">
+              Free Drink!
+            </h1>
+            <div class="rewards-img-container">
+              <p class="rewards-explainer">
+                {{user.firstName}}, you just earned
+                a <span style="font-weight: bold">free medium drink! </span>
+                To claim it, just go to the Spoonholder between
+                <span style="font-style: italic"> Friday and next Thursday </span>
+                and give them your email &#x1F601;
+              </p>          
+
+              <img class="rewards-image" src="{% static image %}">
+              <p class="streak-fires">
+                {% for i in loopRange %}
+                  &#x1F525;
+                {% endfor %}
+              </p>
+              <h5 class="streak-subtitle">
+                {{rewards.streakPoints}} Week Streak {{streakPlural}}!
+              </h5>
+            </div>
+            
+            <p class="rewards-ending-paragraph">
+              Keep an eye on your text messages for the next survey link!
+            </p>
+
+            <hr class="footer-hr">
+            <p class="footer" > Email any questions to:
+              <a href="mailto: scp002@morningside.edu" style="font-style: italic">scp002@morningside.edu </a>
+            </p>
+
+          </div> <!-- End Wrapper -->
+        </div>  <!-- End Rewards Info -->        
+      </div> <!-- Ends Main Container -->  
+
+    {% else %} <!-- No drink yet -->
+      <!-- Containers -->
+      <div class="main-container-wrapper100 expiredContainer">
+        <div class="container-contact100 text-center vertical-center" id="userContainer">
+          <div class="wrap-contact100" id="userWrapper">
+
+            <!-- Content -->
+            <h1 class="contact100-form-title">
+              Response Recorded!
+            </h1>
+            <p>
+              {{user.firstName}}, your response has been recorded! </br>
+            </p>
+
+            <!--Summary Container-->
+            <div class="rewards-summary-container">
+              <h5 class="rewards-subtitle">
+                &#x2615; You're halfway there &#x2615;
+              </h5>
+              <p>
+                  One more response this week and you earn a free drink!
+              </p>
+
+              <!--Streak Points-->
+              <p class="streak-fires-in-container">
+                {% for i in loopRange %}
+                  &#x1F525;
+                {% endfor %}
+              </p>
+              <h5 class="streak-subtitle">
+                {{rewards.streakPoints}} Week Streak {{streakPlural}}!
+              </h5>
+
+            </div>
+
+            <p class="center-paragraph">
+              Keep an eye on your text messages for the next survey link!
+            </p>  
+          
+            <hr class="footer-hr">
+            <p class="footer" > Email any questions to:
+              <a href="mailto: scp002@morningside.edu" style="font-style: italic">scp002@morningside.edu </a>
+            </p>
+
+          </div> <!-- End Wrapper -->
+        </div>  <!--End Rewards Info-->
+      </div> <!-- Ends Main Container -->
+    {% endif %}
+  </body>
+</html>
