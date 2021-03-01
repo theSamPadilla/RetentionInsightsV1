@@ -15,6 +15,8 @@ class User(models.Model):
     email = models.EmailField()
     userGroup = models.CharField(max_length=200)
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
+    active_p = models.BooleanField(default=True)
+
     #Display name
     def __str__(self):
         return 'User ' + str(self.userID)
@@ -52,7 +54,7 @@ class Question_Text(models.Model):
     questionTextID = models.IntegerField(primary_key=True)
     factorID = models.ForeignKey(Factor, on_delete=models.CASCADE)
     text = models.TextField()
-    positive = models.BooleanField(default=True)
+    positive_p = models.BooleanField(default=True)
     QUESTIONS_TYPE = [
         ('S6', 'Slider 1 to 6'),
         ('Bool', 'Boolean'),
