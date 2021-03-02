@@ -1,15 +1,15 @@
 # pylint: disable=relative-beyond-top-level
 # Django imports
+from django.http.response import HttpResponse # type: ignore
 from django.shortcuts import render, get_object_or_404 # type: ignore
 from django.http import HttpResponseRedirect # type: ignore
 from django.views.decorators.http import require_GET, require_POST #type: ignore
-from django.utils import timezone # type: ignore
 from django.urls import reverse  # type: ignore
 from django.views.decorators.cache import never_cache # type: ignore
 
 # My imports
 from .services import SurveyService
-from .models import Survey, Question, Response, Reward, Question_Text, User
+from .models import Survey
 
 ###############################
 # Initiate the service object #
