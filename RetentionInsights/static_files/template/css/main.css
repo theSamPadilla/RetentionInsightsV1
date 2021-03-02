@@ -199,6 +199,7 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Rewards info ]*/
 
+/*Survey Page*/
 .rewards-summary-container {
   width: 83%;
   margin: 10px auto 0px;
@@ -219,13 +220,57 @@ iframe {
   color: #494545;
 }
 
+
+/* Response Recorded */
+.rewards-expiredContainer {
+  height: 100%;
+}
+
+.rewards-vertical-center {
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 .rewards-image {
-  max-width: 270px;
+  max-width: 95%;
   height: auto;
 }
 
-.img-continer {
-  height: 80%;
+.rewards-img-container {
+  text-align: center;
+  padding: 5px 5px 10px;
+  background: #FFEBCD;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.rewards-explainer {
+  margin-bottom: 10px;
+  color: black;
+}
+
+.streak-fires {
+  margin: 10px 0 0;
+}
+
+.streak-subtitle {
+  font-family: Poppins-Regular;
+  font-weight: bold;
+  color: #494545;
+  font-size: 16px;
+}
+
+.streak-fires-in-container {
+  margin: 15px 0 0;
+}
+
+
+.rewards-ending-paragraph {
+  width: 90%;
+  margin: 5px auto 0;
+  text-align: center;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -430,6 +475,17 @@ textarea.input100 {
   cursor: pointer;
 }
 
+/*=========================================================
+[.check100] - for confirmation and checks */
+.check100 {
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  font-family: Poppins-Medium;
+  color: #333333;
+  cursor: pointer;
+}
+
 /*------------------------------------------------------------------
 [ Button ]*/
 .container-contact100-form-btn {
@@ -518,7 +574,15 @@ textarea.input100 {
   }
 }
 
+@media (max-height: 670px) {
+  .rewards-vertical-center {
+    height: 100%;
+  }
 
+  .rewards-expiredContainer {
+    height: 670px;
+  }
+}
 
 /*------------------------------------------------------------------
 [ Alert validate ]*/
@@ -529,10 +593,9 @@ textarea.input100 {
 
 .alert-input100 {
   font-family: FontAwesome;
-  padding: 5px;
-  margin: 5px;
   color: #c80000;
   font-size: 14px;
+  height: 0;
 }
 
 .display-alert-sign::before {
@@ -608,13 +671,13 @@ textarea.input100 {
 .center-paragraph {
   width: 90%;
   margin: 0 auto;
-  padding: 30px 0 0px;
+  padding: 20px 0 0px;
 }
 
 .footer-hr {
   width: 100%;
   border: 1px solid #644e4e;
-  margin: 25px auto 10px;
+  margin:   15px auto 10px;
 }
 
 /*------------------------------------------------------------------
@@ -633,4 +696,14 @@ textarea.input100 {
   color: #494545;
   font-size: 16px;
   padding: 0;
+}
+
+/*------------------------------------------------------------------
+[ Confirmation Survey ]*/
+.label-input100-confirmation {
+  font-family: Poppins-Regular;
+  color: #494545;
+  line-height: 1.5;
+  padding-bottom: 25px;
+  font-size: 18px;
 }

@@ -15,7 +15,7 @@ class User(models.Model):
     email = models.EmailField()
     userGroup = models.CharField(max_length=200)
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
-    active_p = models.BooleanField(default=True)
+    active_p = models.BooleanField(default=False)
 
     #Display name
     def __str__(self):
@@ -40,11 +40,20 @@ class Survey(models.Model):
     completed_p = models.BooleanField(default=False)
     completionDate = models.DateTimeField(null=True, blank=True, default=None)
     
-    #Display name
+    #Displays
     def __str__(self):
         return ("Survey " + str(self.surveyID) + " for " +
-        str(self.creationDate.strftime("%A, %b-%d-%Y at %H:%M:%S")) + 
+        str(timezone.localtime(self.creationDate).strftime("%A, %b-%d-%Y at %H:%M:%S")) + 
         " | Token: " + str(self.token))
+
+    def displayCreationDate(self):
+        return str(timezone.localtime(self.creationDate).strftime("%A, %B %-d, %Y"))
+
+    def displayCompletionDate(self):
+        return str(timezone.localtime(self.completionDate).strftime("%A, %B %-d, %Y at %-I:%M %p"))
+
+    def displayExpirationDate(self):
+        return str(timezone.localtime(self.expirationDate).strftime("%A, %B %-d, %Y at %-I:%M %p"))
 
     #Meta for latest
     class Meta ():

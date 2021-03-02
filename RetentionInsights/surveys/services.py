@@ -51,7 +51,6 @@ class SurveyService(object):
 
         #Return context
         return { 'survey': survey,
-            'date' : survey.creationDate.date(),
             'user': user,
             'questions': questions,
             'streakPoints' : rewards.streakPoints,

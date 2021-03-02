@@ -19,6 +19,7 @@ $(window).on("load", function () {
         var text = parent.find('.input100'); //Includes short and long text
         var sliders = parent.find('.slider100');
         var radios = parent.find('.radio100');
+        var checks = parent.find('.check100');
 
         /* -- Short and Long Text -- */
         if (text.length > 0) {
@@ -61,6 +62,19 @@ $(window).on("load", function () {
                 });
             });
         }
+
+        /* -- Checks -- */
+        if (checks.length > 0) {
+            checks.each(function () {
+                $(this).on('change', function(){
+                    if ($(this).is(':checked')) {
+                        parent.addClass('has-val');
+                    } else {
+                        parent.removeClass('has-val');
+                    }
+                });
+            });
+        }
         
     });    
     
@@ -71,7 +85,7 @@ $(window).on("load", function () {
     $('#survey-form').on('submit',function(){
         //Initialize to is Valid
         isValid = true;
-
+        
         //Get all the questions and check for the "has-val" class
         $('.questionContainer').each(function () {
             //If not, showValidate and make survey not valid
@@ -94,7 +108,7 @@ $(window).on("load", function () {
         return isValid;
     });
 
-    //Hide Validation on focus for text areas on focus
+    //Hide Validation for text areas on focus
     $('.input100').each(function(){
         $(this).focus(function(){
             //For text areas, the questionContainer is the immediate parent
@@ -104,7 +118,7 @@ $(window).on("load", function () {
        });
     });
 
-    //Hide Validation on change for sliders on input
+    //Hide Validation for sliders on input
     $('.slider100').each(function(){
         $(this).on('input', function(){
             //For sliders, the questionContainer is the immediate parent
@@ -114,11 +128,21 @@ $(window).on("load", function () {
        });
     });
 
-    //Hide Validation on change for radio on change
+    //Hide Validation for radio on change
     $('.radio100').each(function(){
         $(this).on('change', function(){
             //For radios, the questionContainer is the TWO parents above
             questionContainer = $(this).parent().parent();
+
+            hideValidate(questionContainer);
+       });
+    });
+
+    //Hide Validation for check on change
+    $('.check100').each(function(){
+        $(this).on('change', function(){
+            //For checks, the questionContainer is the immediate parent
+            questionContainer = $(this).parent();
 
             hideValidate(questionContainer);
        });

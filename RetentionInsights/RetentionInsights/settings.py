@@ -33,6 +33,8 @@ ALLOWED_HOSTS = ['35.208.177.121']
 
 INSTALLED_APPS = [
     'surveys.apps.SurveysConfig',
+    'rewards.apps.RewardsConfig',
+    'confirmation.apps.ConfirmationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

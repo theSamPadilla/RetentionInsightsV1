@@ -32,10 +32,14 @@ def GetSurvey(request, token):
 
     #Check if survey has Expired
     if (surveyService.IsSurveyExpired(survey.surveyID)):
-        return render(request, 'surveys/expired.html', {'user' : survey.userID, 'expirationDate' : survey.expirationDate})
+        return render(request, 'surveys/expired.html', {'user' : survey.userID, 'survey' : survey})
 
     #Get survey context from service
     context = surveyService.GetSurveyContext(survey)
+
+    #If survey has no questions, it is a confirmation survey
+    if (len(context['questions']) == 0):
+        return HttpResponseRedirect(reverse('confirmation:GetConfirmationPage', args=[token]))
 
     return render(request, 'surveys/index.html', context)
 

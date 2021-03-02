@@ -475,6 +475,17 @@ textarea.input100 {
   cursor: pointer;
 }
 
+/*=========================================================
+[.check100] - for confirmation and checks */
+.check100 {
+  width: 25px;
+  height: 25px;
+  background: transparent;
+  font-family: Poppins-Medium;
+  color: #333333;
+  cursor: pointer;
+}
+
 /*------------------------------------------------------------------
 [ Button ]*/
 .container-contact100-form-btn {
@@ -553,26 +564,6 @@ textarea.input100 {
   transform: translateX(10px);
 }
 
-
-/*------------------------------------------------------------------
-[ Responsive ]*/
-
-@media (max-width: 576px) {
-  .wrap-contact100 {
-    padding: 40px 15px;
-  }
-}
-
-@media (max-height: 670px) {
-  .rewards-vertical-center {
-    height: 100%;
-  }
-
-  .rewards-expiredContainer {
-    height: 670px;
-  }
-}
-
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
@@ -582,10 +573,9 @@ textarea.input100 {
 
 .alert-input100 {
   font-family: FontAwesome;
-  padding: 5px;
-  margin: 5px;
   color: #c80000;
   font-size: 14px;
+  height: 0;
 }
 
 .display-alert-sign::before {
@@ -686,4 +676,56 @@ textarea.input100 {
   color: #494545;
   font-size: 16px;
   padding: 0;
+}
+
+/*------------------------------------------------------------------
+[ Confirmation Survey ]*/
+.label-input100-confirmation {
+  font-family: Poppins-Regular;
+  color: #494545;
+  line-height: 1.5;
+  padding-bottom: 25px;
+  font-size: 18px;
+}
+
+/*------------------------------------------------------------------
+[ Confirmation Recorded]*/
+.confirmation-expiredContainer {
+  height: 100%;
+}
+
+.confirmation-vertical-center {
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ RESPONSIVE ] - Must be last to override everything*/
+
+@media (max-width: 576px) {
+  .wrap-contact100 {
+    padding: 40px 15px;
+  }
+}
+
+@media (max-height: 670px) {
+  .rewards-vertical-center {
+    height: 100%;
+  }
+
+  .rewards-expiredContainer {
+    height: 670px;
+  }
+}
+
+@media (max-height: 755px) {
+  .confirmation-vertical-center {
+    height: 100%;
+  }
+
+  .confirmation-expiredContainer {
+    height: 810px;
+  }
 }
