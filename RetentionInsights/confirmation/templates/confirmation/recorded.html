@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Survey Recorded</title>
+
+    <!-- Loading Bootstrap, JS, and Popper -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %} "></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Template CSS Loads -->
+    <link rel="stylesheet" type="text/css" href="{% static 'template/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/util.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/main.css' %}">
+    
+  </head>
+  
+  <body>
+    <!-- Containers -->
+    <div class="main-container-wrapper100 confirmation-expiredContainer">
+      <div class="container-contact100 text-center confirmation-vertical-center" id="userContainer">
+        <div class="wrap-contact100" id="userWrapper">
+          
+          <!-- Content -->
+          <h1 class="contact100-form-title">
+            You're Set!
+          </h1>
+          <div class="rewards-img-container">
+            <p class="rewards-explainer">
+              {{user.firstName}}, thank you for confirming your participation.
+              We are excited to work with you this semester and hopefully earn you some
+              free &#x2615;.
+              Check out 
+              <a target="_blank" href="https://youtu.be/tJ6n8rkNWEs">this video</a> 
+              to understand how the rewards will work.
+            </p>
+            <img class="rewards-image" src="{% static '/confirmation/img/thanks.jpg' %}">
+          </div>
+
+          <p class="rewards-ending-paragraph">
+            Keep an eye on your text messages for the first survey link!
+          </p>
+
+          <hr class="footer-hr">
+          <p class="footer" >
+            If you have any questions please don't hesitate to shoot me an email at:
+            <a href="mailto: scp002@morningside.edu" style="font-style: italic">scp002@morningside.edu </a>
+          </p>
+
+        </div> <!-- End Wrapper -->
+      </div>  <!-- End Rewards Info -->        
+    </div> <!-- Ends Main Container -->  
+  </body>
+</html>
