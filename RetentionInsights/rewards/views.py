@@ -4,6 +4,7 @@ from django.http import HttpResponse #type: ignore
 from django.shortcuts import render #type: ignore
 from django.views.decorators.http import require_GET, require_POST #type: ignore
 from django.urls import reverse #type: ignore
+from django.conf import settings #type: ignore
 
 # My imports
 from .services import RewardService
@@ -12,7 +13,7 @@ from .services import RewardService
 # Initiate the service object #
 ###############################
 rewardService = RewardService()
-VERIFY_TOKEN = "cf7ws4b2er"
+VERIFY_TOKEN = settings.REWARDS_VERIFY_TOKEN
 
 ###############################
 # GET #
@@ -31,7 +32,7 @@ def CheckRewards (request, studyID, token):
         except Exception as e:
             #Log check error.
             rewardService.LogRequest(request, verified="Verified", endpoint='Check', status="ERROR")
-            message = "An error occured " + str(e) 
+            message = "An error occured: " + str(e) 
             return HttpResponse(message, content_type="text/plain")
 
         #Log succesful and verified check

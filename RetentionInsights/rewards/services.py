@@ -16,19 +16,20 @@ class RewardService(object):
         usersWithReward = {}
 
         #Get each user with 2 weekly responses
-        for user in users:
+        for i in range(0, len(users)):
+            user = users[i]
             userRewards = Reward.objects.get(userID = user.userID)
 
             if userRewards.weeklyResponses == 2:
-                usersWithReward[user.firstName] = user.email
-
+                usersWithReward[i] = [user.firstName, user.email]
+                
         #Make pandas df
         df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email'])
 
         #Export to Excel file to Morningside Folder
         path = "/home/sam/RetentionInsightsV1/RetentionInsights/rewards/reward_reports/Morningside_College/"
         filename = path + str(date.today()) + ".xlsx"
-        df.to_excel(filename)
+        df.to_excel(filename, index=False)
 
         return True
 

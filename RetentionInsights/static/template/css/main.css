@@ -720,7 +720,7 @@ textarea.input100 {
   }
 }
 
-@media (max-height: 755px) {
+@media (max-height: 790px) {
   .confirmation-vertical-center {
     height: 100%;
   }

@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import environ #type: ignore
+
+# Setting up Environment Variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +26,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u$1fwr(bxqkeu44qq$-jj$dn+$xe8)iu#dz)e@@+&=jy%wyb_+'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.208.177.121']
+ALLOWED_HOSTS = ['35.208.177.121', '.retentioninsights.io', '127.0.0.1']
 
 
 # Application definition
@@ -129,7 +134,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
 # User-generated Media files (jpg, png, vids)
 # https://www.geeksforgeeks.org/python-uploading-images-in-django/
+
+
+# Rewards Verification Token
+REWARDS_VERIFY_TOKEN = env('REWARDS_VERIFY_TOKEN')
+
+# Deployment Security Settings
+#
 
