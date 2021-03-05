@@ -61,7 +61,7 @@ class RewardService(object):
 ###############
     # Log Requests to both Check and Update endpoints
     @staticmethod
-    def LogRequest(request, verified, endpoint, status):
+    def LogRequest(request, verified, endpoint, status, error):
         #Get Client IP
         ip = RewardService.get_client_ip(request)
 
@@ -76,8 +76,12 @@ class RewardService(object):
         now = timezone.localtime(timezone.now()).strftime("%A, %b-%d-%Y at %H:%M:%S")
 
         #Write log and close file
-        f.write("\n%s token from IP %s on %s | Status: %s\r\n" %
-        (verified, ip, now, status))
+        if error != None:
+            f.write("\n%s token from IP %s on %s | Status: %s\r\nError: %s\n" %
+            (verified, ip, now, status, error))
+        else:
+            f.write("\n%s token from IP %s on %s | Status: %s\r\n" %
+            (verified, ip, now, status))
         
         f.close()
 

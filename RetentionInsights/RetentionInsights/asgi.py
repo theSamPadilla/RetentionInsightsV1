@@ -8,9 +8,9 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/asgi/
 """
 
 import os
-
 from django.core.asgi import get_asgi_application #type: ignore
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings')
+#Point to prod just for safety. Using WSGI in the whole app
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings.production')
 
 application = get_asgi_application()

@@ -11,6 +11,10 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings')
+# Developmet Settings
+# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings.development')
+
+# Production Settings
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings.production')
 
 application = get_wsgi_application()

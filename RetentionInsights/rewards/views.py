@@ -1,4 +1,5 @@
 # Django imports
+from os import error
 from django.http.response import HttpResponseRedirect #type: ignore
 from django.http import HttpResponse #type: ignore
 from django.shortcuts import render #type: ignore
@@ -22,7 +23,7 @@ VERIFY_TOKEN = settings.REWARDS_VERIFY_TOKEN
 def CheckRewards (request, studyID, token):
     if token != VERIFY_TOKEN:
         #Log unverfied token
-        rewardService.LogRequest(request, verified="UNVERIFIED", endpoint='Check', status="DENIED")
+        rewardService.LogRequest(request, verified="UNVERIFIED", endpoint='Check', status="DENIED", error=None)
         return HttpResponse("Access denied.", content_type="text/plain")
 
     else:
@@ -31,18 +32,18 @@ def CheckRewards (request, studyID, token):
         
         except Exception as e:
             #Log check error.
-            rewardService.LogRequest(request, verified="Verified", endpoint='Check', status="ERROR")
+            rewardService.LogRequest(request, verified="Verified", endpoint='Check', status="ERROR", error=e)
             message = "An error occured: " + str(e) 
             return HttpResponse(message, content_type="text/plain")
 
         #Log succesful and verified check
-        rewardService.LogRequest(request, verified="Verified", endpoint='Check', status="SUCCESSFUL")
+        rewardService.LogRequest(request, verified="Verified", endpoint='Check', status="SUCCESSFUL", error=None)
         return HttpResponse("Report File Succesfully created.", content_type="text/plain")
 
 @require_GET
 def UpdateRewards (request, studyID, token):
     #Log unverfied token
-    rewardService.LogRequest(request, verified="UNVERIFIED", endpoint='Update', status="DENIED")
+    rewardService.LogRequest(request, verified="UNVERIFIED", endpoint='Update', status="DENIED", error=None)
     if token != VERIFY_TOKEN:
         return HttpResponse("Access denied.", content_type="text/plain")
     
@@ -52,12 +53,12 @@ def UpdateRewards (request, studyID, token):
 
         except Exception as e:
             #Log failed update
-            rewardService.LogRequest(request, verified="Verified", endpoint='Update', status="ERROR")
+            rewardService.LogRequest(request, verified="Verified", endpoint='Update', status="ERROR", error=e)
             message = "An error occured " + str(e) 
             return HttpResponse(message, content_type="text/plain")
 
         #Log succesful update
-        rewardService.LogRequest(request, verified="Verified", endpoint='Update', status="SUCCESSFUL")
+        rewardService.LogRequest(request, verified="Verified", endpoint='Update', status="SUCCESSFUL", error=None)
         message = "Rewards for study " + str(studyID) + " have been succesfully updated."
         return HttpResponse(message, content_type="text/plain")
 
