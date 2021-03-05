@@ -1,5 +1,4 @@
 /RetentionInsights/RetentionInsights/settings/.env
-/RetentionInsights/rewards/logs/
-/RetentionInsights/rewards/reward_reports/
-/backups
 /logs
+/reports
+/backups
