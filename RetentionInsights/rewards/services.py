@@ -27,7 +27,7 @@ class RewardService(object):
         df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email'])
 
         #Export to Excel file to Morningside Folder
-        path = "/home/sam/RetentionInsightsV1/RetentionInsights/rewards/reward_reports/Morningside_College/"
+        path = "/home/sam/RetentionInsightsV1/reports/rewards/Morningside_Pilot/"
         filename = path + str(date.today()) + ".xlsx"
         df.to_excel(filename, index=False)
 
@@ -67,9 +67,9 @@ class RewardService(object):
 
         #Get appropriate filename
         if endpoint == 'Check':
-            filename = "/home/sam/RetentionInsightsV1/RetentionInsights/rewards/logs/CheckRewardsLog.txt"
+            filename = "/home/sam/RetentionInsightsV1/logs/rewards/CheckRewardsLog.txt"
         else:
-            filename = "/home/sam/RetentionInsightsV1/RetentionInsights/rewards/logs/UpdateRewardsLog.txt"
+            filename = "/home/sam/RetentionInsightsV1/logs/rewards/UpdateRewardsLog.txt"
         
         #Open file and get current time
         f = open(filename, "a")
