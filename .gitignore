@@ -1,4 +1,5 @@
 /RetentionInsights/RetentionInsights/settings/.env
+/RetentionInsights/db.sqlite3
 /logs
 /reports
 /backups
