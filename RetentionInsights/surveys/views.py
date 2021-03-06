@@ -29,7 +29,7 @@ def GetSurvey(request, token):
     #Get survey context from service
     context = surveyService.GetSurveyContext(survey)
 
-    #If survey has no questions, it is a confirmation survey
+    #If survey has no questions, it is a confirmation survey - redirect
     if (len(context['questions']) == 0):
         return HttpResponseRedirect(reverse('confirmation:GetConfirmationPage', args=[token]))
 
