@@ -44,7 +44,7 @@ existing_tokens = [ r[0] for r in result ]
 # grab all users for the supplied study id
 #
 
-result = c.execute( 'SELECT * FROM surveys_user WHERE studyID_id=?' , ( args.studyid , ) )
+result = c.execute( 'SELECT * FROM surveys_user WHERE studyID_id=? AND active_p=true' , ( args.studyid , ) )
 user_records = [ r for r in result ]
 
 #
@@ -121,6 +121,7 @@ for user in user_records:
         print( 'SMS sent to user' , user[0] , user[1] , 'at' , user[2] )
     except Exception as e:
         print( 'Recieved exception when sending survey request URL.' , e )
+        print( 'Error when sending SMS sent to user' , user[0] , user[1] , 'at' , user[2] )
 
 #
 # ... end for each user
