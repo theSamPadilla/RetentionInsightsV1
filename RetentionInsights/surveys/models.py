@@ -29,7 +29,7 @@ class Factor(models.Model):
     
     #Display name
     def __str__(self):
-        return self.factorName
+        return (self.factorName + " (Study " + str(self.studyID.studyID) + ")") 
 
 class Survey(models.Model):
     surveyID = models.IntegerField(primary_key=True)

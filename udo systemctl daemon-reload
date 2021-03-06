@@ -1,0 +1,14 @@
+[0;1;32m●[0m gunicorn.socket - gunicorn socket
+   Loaded: loaded (/etc/systemd/system/gunicorn.socket; enabled; vendor preset: enabled)
+   Active: [0;1;32mactive (listening)[0m since Fri 2021-03-05 19:56:36 UTC; 4h 5min ago
+   Listen: /home/sam/RetentionInsightsV1/run/gunicorn.sock (Stream)
+    Tasks: 0 (limit: 4665)
+   Memory: 0B
+   CGroup: /system.slice/gunicorn.socket
+
+Mar 05 19:56:36 spring2020 systemd[1]: Listening on gunicorn socket.
+Mar 05 23:08:11 spring2020 systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.socket: Socket unit configuration has changed while unit has been running, no open socket file descriptor left. The socket unit is not functional until restarted.[0m
+Mar 05 23:09:16 spring2020 systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.socket: Socket unit configuration has changed while unit has been running, no open socket file descriptor left. The socket unit is not functional until restarted.[0m
+Mar 05 23:09:52 spring2020 systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.socket: Socket unit configuration has changed while unit has been running, no open socket file descriptor left. The socket unit is not functional until restarted.[0m
+Mar 05 23:10:41 spring2020 systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.socket: Socket unit configuration has changed while unit has been running, no open socket file descriptor left. The socket unit is not functional until restarted.[0m
+Mar 06 00:01:47 spring2020 systemd[1]: [0;1;39m[0;1;31m[0;1;39mgunicorn.socket: Socket unit configuration has changed while unit has been running, no open socket file descriptor left. The socket unit is not functional until restarted.[0m

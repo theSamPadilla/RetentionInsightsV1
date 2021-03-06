@@ -26,6 +26,13 @@ def GetSurvey(request, token):
     #Validate the Survey exsts or raise 404
     survey = get_object_or_404(Survey, token=token)
 
+    #Get survey context from service
+    context = surveyService.GetSurveyContext(survey)
+
+    #If survey has no questions, it is a confirmation survey
+    if (len(context['questions']) == 0):
+        return HttpResponseRedirect(reverse('confirmation:GetConfirmationPage', args=[token]))
+
     #Ensure survey has not been completed
     if (surveyService.IsSurveyCompleted(survey.surveyID)):
         return render(request, 'surveys/completed.html', {'user' : survey.userID, 'survey' : survey} )
@@ -33,13 +40,6 @@ def GetSurvey(request, token):
     #Check if survey has Expired
     if (surveyService.IsSurveyExpired(survey.surveyID)):
         return render(request, 'surveys/expired.html', {'user' : survey.userID, 'survey' : survey})
-
-    #Get survey context from service
-    context = surveyService.GetSurveyContext(survey)
-
-    #If survey has no questions, it is a confirmation survey
-    if (len(context['questions']) == 0):
-        return HttpResponseRedirect(reverse('confirmation:GetConfirmationPage', args=[token]))
 
     return render(request, 'surveys/index.html', context)
 
