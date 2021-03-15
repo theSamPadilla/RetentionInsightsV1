@@ -33,7 +33,7 @@ class Factor(models.Model):
 
 class Survey(models.Model):
     surveyID = models.IntegerField(primary_key=True)
-    token = models.CharField(max_length=6, unique=True)
+    token = models.CharField(max_length=20, unique=True)
     userID = models.ForeignKey(User, on_delete=models.CASCADE)
     creationDate = models.DateTimeField(default=timezone.now)
     expirationDate = models.DateTimeField(null=True)
