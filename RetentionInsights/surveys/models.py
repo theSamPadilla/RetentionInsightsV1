@@ -16,6 +16,7 @@ class User(models.Model):
     userGroup = models.CharField(max_length=200)
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
     active_p = models.BooleanField(default=False)
+    removed_p = models.BooleanField(default=False)
 
     #Display name
     def __str__(self):
