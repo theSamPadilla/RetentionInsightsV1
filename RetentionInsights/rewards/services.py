@@ -5,12 +5,25 @@ import pandas as pd #type: ignore
 from surveys.models import User, Reward, Study #type: ignore
 
 class RewardService(object):
-    
-    # Valid only for Morningside College Reward Rules #
-    @staticmethod
-    def CheckRewardsForStudyID(studyID):
+##############
+# ATTRIBUTES #
+##############
+    # Define study path #
+    studyIDToFolder = {
+        1 : "test/",
+        2 : "Morningside_Pilot/",
+    }
+
+############################
+# CHECK AND UPDATE Methods #
+############################
+    @classmethod
+    def CheckRewardsForStudyID(cls, studyID):
         #Get all the users with the StudyID
         users = User.objects.filter(studyID = studyID)
+
+        #Define studyPath
+        studyFolder = cls.studyIDToFolder[studyID]
 
         #Initialize response dictionary
         usersWithReward = {}
@@ -26,8 +39,8 @@ class RewardService(object):
         #Make pandas df
         df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email'])
 
-        #Export to Excel file to Morningside Folder
-        path = "/home/sam/RetentionInsightsV1/reports/rewards/Morningside_Pilot/"
+        #Export to Excel file to appropriate Folder
+        path = "/home/sam/RetentionInsightsV1/reports/rewards/" + studyFolder
         filename = path + str(date.today()) + ".xlsx"
         df.to_excel(filename, index=False)
 
