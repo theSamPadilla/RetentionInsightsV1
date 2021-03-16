@@ -9,7 +9,7 @@ class RewardService(object):
 # ATTRIBUTES #
 ##############
     # Define study path #
-    studyIDToFolder = {
+    studyIDToReportFolder = {
         1 : "test/",
         2 : "Morningside_Pilot/",
     }
@@ -23,7 +23,7 @@ class RewardService(object):
         users = User.objects.filter(studyID = studyID)
 
         #Define studyPath
-        studyFolder = cls.studyIDToFolder[studyID]
+        reportFolder = cls.studyIDToReportFolder[studyID]
 
         #Initialize response dictionary
         usersWithReward = {}
@@ -40,7 +40,7 @@ class RewardService(object):
         df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email'])
 
         #Export to Excel file to appropriate Folder
-        path = "/home/sam/RetentionInsightsV1/reports/rewards/" + studyFolder
+        path = "/home/sam/RetentionInsightsV1/reports/rewards/" + reportFolder
         filename = path + str(date.today()) + ".xlsx"
         df.to_excel(filename, index=False)
 
