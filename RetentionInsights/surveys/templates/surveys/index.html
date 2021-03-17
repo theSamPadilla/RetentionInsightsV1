@@ -74,8 +74,8 @@
                       <li class="sliderLabel">5</li>
                       <li class="sliderLabel" id="sliderLabelRight">6</li>
                     </ul>
-                    <input type="range" name="{{question.questionTextID}}" id="sliderQ{{question.questionTextID}}" class="form-range slider100" min="1" max="7" step="1" value="4"/>                
-                    <label for="sliderQ{{question.questionTextID}}" class="explainer-label"> Rate your agreement with the statement </label>
+                    <input type="range" name="{{obj.questionID}}" id="sliderQ{{obj.questionID}}" class="form-range slider100" min="1" max="7" step="1" value="4"/>                
+                    <label for="sliderQ{{obj.questionID}}" class="explainer-label"> Rate your agreement with the statement </label>
                   </div>                
                   <span class="focus-input100"></span>
                 </div>
@@ -87,12 +87,12 @@
                   <h3 class="label-input100">{{question.text}}</h3>
                   <div class="questionContainer">
                     <div class="form-check-inline trueOrFalse">
-                      <input class="form-check-input radio100" type="radio" value="True" name="{{question.questionTextID}}" id="trueValQ{{question.questionTextID}}" />
-                      <label class="form-check-label trueVal" for="trueValQ{{question.questionTextID}}"> Yes </label>
+                      <input class="form-check-input radio100" type="radio" value="True" name="{{obj.questionID}}" id="trueValQ{{obj.questionID}}" />
+                      <label class="form-check-label trueVal" for="trueValQ{{obj.questionID}}"> Yes </label>
                     </div>
                     <div class="form-check-inline trueOrFalse">
-                      <input class="form-check-input radio100" type="radio" value="False" name="{{question.questionTextID}}" id="falseValQ{{question.questionTextID}}" />
-                      <label class="form-check-label falseVal" for="falseValQ{{question.questionTextID}}"> No </label>
+                      <input class="form-check-input radio100" type="radio" value="False" name="{{obj.questionID}}" id="falseValQ{{obj.questionID}}" />
+                      <label class="form-check-label falseVal" for="falseValQ{{obj.questionID}}"> No </label>
                     </div>
                   </div>
                   <span class="focus-input100"></span>
@@ -104,7 +104,7 @@
                 <div class="wrap-input100 validate-input">
                   <h3 class="label-input100">{{question.text}}</h3>
                   <div class="questionContainer">
-                    <input class="input100" type="text" name="{{question.questionTextID}}" placeholder=" What's in your mind?">
+                    <input class="input100" type="text" name="{{obj.questionID}}" placeholder=" What's in your mind?">
                   </div>
                   <span class="focus-input100"></span>
                 </div>
@@ -115,7 +115,7 @@
                 <div class="wrap-input100 validate-input">
                   <h3 class="label-input100">{{question.text}}</h3>
                   <div class="questionContainer">
-                    <textarea class="input100" name="{{question.questionTextID}}" placeholder=" What's in your mind?"></textarea>
+                    <textarea class="input100" name="{{obj.questionID}}" placeholder=" What's in your mind?"></textarea>
                   </div>
                   <span class="focus-input100"></span>
                 </div>
