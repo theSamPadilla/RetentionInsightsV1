@@ -200,6 +200,19 @@ iframe {
 [ Rewards info ]*/
 
 /*Survey Page*/
+.important-info-container {
+  width: 100%;
+  margin: 10px auto 10px;
+  padding: 10px;
+  background: #FFEBCD;
+  border-radius: 10px;
+}
+
+.important-info {
+  color: #494545;
+  text-align: justify;
+}
+
 .rewards-summary-container {
   width: 83%;
   margin: 10px auto 0px;

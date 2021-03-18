@@ -17,7 +17,7 @@ Made because of two surveys were sent on the same day by accident.
 """
 
 # My imports #
-from surveys.models import User, Reward, Survey
+from surveys.models import User, Reward, Survey #type: ignore
 
 # Grab students
 students = User.objects.filter(studyID = 2)
