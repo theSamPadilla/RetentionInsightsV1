@@ -9,9 +9,12 @@ django.setup()
 #############################
 
 """
+
+DESCRIPTION:
 This script checks that the users have the appropriate number
 of rewards for the surveys they completed.
 
+USAGE:
 Made because of two surveys were sent on the same day by accident.
 
 """

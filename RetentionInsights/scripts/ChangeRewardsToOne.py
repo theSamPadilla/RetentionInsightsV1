@@ -9,15 +9,18 @@ django.setup()
 #############################
 
 """
+
+DESCRIPTION:
 This script defautls the weeklyResponses of every user with more than ONE
 weeklyResponse back to ONE.
 
+USAGE:
 Made because two surveys were sent on the same day by accident (3/16/21).
 
 """
 
 # My imports #
-from surveys.models import User, Reward, Survey #type: ignore
+from surveys.models import User, Reward #type: ignore
 
 # Grab students for Morningside Study
 students = User.objects.filter(studyID = 2)
