@@ -7,7 +7,7 @@ import sys
 def main():
     """Run administrative tasks."""
     #Pointing to dev settings for now
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings.production')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RetentionInsights.settings.development')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
