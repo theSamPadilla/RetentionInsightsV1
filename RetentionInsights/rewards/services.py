@@ -39,10 +39,15 @@ class RewardService(object):
         #Make pandas df
         df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email'])
 
+        # Sort alphabetically and organize indexes
+        df.sort_values(by='Name', inplace=True)
+        df.reset_index(drop=True, inplace=True)
+        df.index += 1
+
         #Export to Excel file to appropriate Folder
         path = "/home/sam/RetentionInsightsV1/reports/rewards/" + reportFolder
         filename = path + str(date.today()) + ".xlsx"
-        df.to_excel(filename, index=False)
+        df.to_excel(filename)
 
         return True
 
