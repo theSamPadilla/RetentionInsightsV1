@@ -5,11 +5,11 @@ STUDY_ID = 2
 
 
 #
-# grab all the users currently in the system
+# read list of users to be added to study
 # 
 
 users = {}
-with open('/home/dane/Morningside_accepted_2021_03_01.csv') as infile:
+with open('/home/dane/Morningside_accepted_2021_03_19.csv') as infile:
 
     csv_reader = csv.reader( infile )
 
@@ -44,7 +44,7 @@ for users_phones in users.keys():
 
     if users_phones not in db_phones :
 
-        result = c.execute( 'INSERT INTO surveys_user ( firstName , phoneNumber , email , userGroup , studyID_id , active_p ) VALUES (? , ? , ? , ? ,? , True)' ,
+        result = c.execute( 'INSERT INTO surveys_user ( firstName , phoneNumber , email , userGroup , studyID_id , active_p , removed_p ) VALUES (? , ? , ? , ? ,? , False , False )' ,
                         ( users[users_phones][ 'name' ] ,
                           users_phones ,
                           users[users_phones][ 'email' ] ,
