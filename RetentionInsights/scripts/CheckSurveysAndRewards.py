@@ -31,7 +31,7 @@ for student in students:
     rewards = Reward.objects.get(pk = student.userID)
 
     # Put the date below
-    surveys = Survey.objects.filter(userID = student.userID, completed_p = True).filter(creationDate__gte = '2021-03-16')
+    surveys = Survey.objects.filter(userID = student.userID, completed_p = True).filter(creationDate__gte = '2021-03-22')
 
     print ("\n\nStudent %s" % student.firstName)
     print ({len(surveys) : rewards.weeklyResponses})

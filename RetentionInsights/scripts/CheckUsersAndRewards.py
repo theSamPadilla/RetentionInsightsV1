@@ -19,7 +19,7 @@ To check the above.
 """
 
 # My imports #
-from surveys.models import User, Reward #type: ignore
+from surveys.models import User, Reward, Survey #type: ignore
 
 # Grab students and rewards
 totalStudents = User.objects.filter(studyID = 2).count()
@@ -39,6 +39,6 @@ pendingStudents = User.objects.filter(studyID = 2, active_p = False, removed_p =
 print("\nTotal students: %d" % totalStudents)
 print("Rewards: %d" % rewards)
 
-print("\nActvie: %d" % activeStudents)
+print("\nActive: %d" % activeStudents)
 print("Removed: %d" % removedStudents)
 print("Pending: %d" % pendingStudents)

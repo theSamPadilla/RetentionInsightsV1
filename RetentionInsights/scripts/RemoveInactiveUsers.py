@@ -35,6 +35,10 @@ print ("\nActive users: ", len(active))
 inactive = students.filter(active_p = False)
 print ("Inactive users: ", len(inactive))
 
+# Grab pending students
+pending = students.filter(active_p = False, removed_p = False)
+print ("Pending users: ", len(pending))
+
 # Grab removed users
 removed = students.filter(removed_p = True)
 print ("Removed users: ", len(removed))
@@ -47,3 +51,5 @@ inactive.update(removed_p = True)
 print ("\nActive users: ", len(active))
 removedANDinactive = students.filter(removed_p = True, active_p = False)
 print ("Removed AND Inactive users: ", len(removedANDinactive))
+pending = students.filter(active_p = False, removed_p = False)
+print ("Pending users: ", len(pending))

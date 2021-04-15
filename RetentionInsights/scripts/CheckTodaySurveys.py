@@ -22,16 +22,16 @@ To check toda's survey.
 from surveys.models import Survey, Response #type: ignore
 
 # Grab all surveys for today
-todaySurveys = Survey.objects.filter(creationDate__gte = '2021-03-17', userID__studyID = 2)
+todaySurveys = Survey.objects.filter(creationDate__gte = '2021-04-06', userID__studyID = 2)
 
 # Grab completed surveys
 completed = todaySurveys.filter(completed_p = True)
 
 # Grab all responses for today
-responses = Response.objects.filter(questionID__surveyID__creationDate__gte = '2021-03-17',
+responses = Response.objects.filter(questionID__surveyID__creationDate__gte = '2021-04-06',
             questionID__surveyID__completed_p = True, 
             questionID__surveyID__userID__studyID = 2)
 
 print ("\nToday Surveys for Morningside College: %d" % len(todaySurveys))
 print ("Completed Surveys today: %d" % len(completed))
-print ("Recroded Responses today: %d" % len(responses))
+print ("Recorded Responses today: %d" % len(responses))

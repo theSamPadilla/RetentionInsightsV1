@@ -17,6 +17,8 @@ class User(models.Model):
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
     active_p = models.BooleanField(default=False)
     removed_p = models.BooleanField(default=False)
+    age = models.IntegerField(default=None, blank=True, null=True)
+    employmentTime = models.DurationField(default=None, blank=True, null=True)
 
     #Display name
     def __str__(self):
