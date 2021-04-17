@@ -12,7 +12,7 @@ class User(models.Model):
     userID = models.IntegerField(primary_key=True)
     firstName = models.CharField(max_length=200)
     phoneNumber = models.CharField(max_length=15)
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
     userGroup = models.CharField(max_length=200)
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
     active_p = models.BooleanField(default=False)
@@ -77,7 +77,7 @@ class Question_Text(models.Model):
     
     #Display name 
     def __str__(self):
-        return self.text
+        return self.text + " | (" + str(self.factorID) + ")"
 
 class Question(models.Model):
     questionID = models.IntegerField(primary_key=True)
