@@ -1,5 +1,7 @@
 ## SETUP TO RUN THE SCRIPT ##
 import os, sys
+
+from pandas.core.indexes import multi
 path = '/home/sam/RetentionInsightsV1/RetentionInsights/'
 sys.path.append(path)
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RetentionInsights.settings.production")
@@ -15,13 +17,35 @@ This script adds users and rewards to a given study based on an excel sheet.
 
 USAGE:
 To add new users.
+Delete the excel sheet after using it.
 Remember to Add rewards!
+Keep warnings updated.
 
 """
 
 # My imports #
 import pandas as pd
-from surveys.models import Question_Text, Factor, User, Reward #type: ignore
+import datetime
+from surveys.models import User, Reward #type: ignore
+
+# Helper Function #
+def GetEmploymentTime(timestr):
+    #Get the num and month
+    spltDur = timestr.split()
+    num = int(spltDur[0])
+    duration = spltDur[1]
+
+    #Define days multipler
+    if duration in ("YR", "YRS"):
+        multiplier = 365.25 
+    else:
+        multiplier = 30
+
+    #Define time duration in days    
+    days = datetime.timedelta(days=num*multiplier)
+    
+    return days
+
 
 # Check if study already has users
 #!Keep this warning updated.
@@ -35,21 +59,32 @@ if factors > 0:
 filename = "SiouxRubber_EmployeeList.xlsx"
 df = pd.read_excel(filename)
 
-# Grab starting ID (highest questionTextID + 1) 
-startingID = Question_Text.objects.last().questionTextID + 1
+# Grab starting ID (highest userID + 1) 
+startingID = User.objects.last().userID + 1
 
 # Make list of objects
-#!?Note that this defaults all the questions to Sliders
-questions = [
-    (Question_Text(startingID+index, row.FactorID,
-        row.Question_Text, row.Positive_p,'S6'))
+users = [(
+    User(
+        startingID+index,   #userID
+        row.Name,           #firstName
+        row.Phone,          #phoneNumber
+        None,               #email
+        row.Position,       #userGroup
+        3,                  #studyID #!SiouxRubber = 3
+        True,               #active_p
+        False,              #removed_p
+        row.Age,            #age
+        GetEmploymentTime(row.EmploymentTime)
+        ))
     for index, row in df.iterrows()
 ]
 
-print ("Creating List of Questions from file", filename)
+print ("Creating List of users from file", filename)
 
-# Save each object
-for q in questions:
-    q.save()
+# Save each object and create rewards
+for u in users:
+    reward = Reward(u.userID)
+    u.save()
+    reward.save()
 
-print ("\nSaved %d new questions." % len(questions))
+print ("\nSaved %d new users and rewards." % len(users))
