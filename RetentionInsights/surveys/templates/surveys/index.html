@@ -39,13 +39,7 @@
           <p>
             Here is the survey for {{survey.displayCreationDate}}</br>
           </p>
-          <div class="rewards-summary-container">
-            <h5 class="rewards-subtitle">Rewards Summary</h5>
-            <p class="rewards-summary">
-              Free &#x2615; in <span style="font-weight:bold"> {{missingResponses}}</span> {{plural}}! </br>
-              Week Streak: <span style="font-weight:bold"> {{streakPoints}}</span>&#x1F525;
-            </p>
-          </div>
+          {% include "./partial/_rewards_summary.html" %}
         </div>
       </div>  <!--End User Info-->
       

@@ -22,96 +22,14 @@
   </head>
   
   <body>
-    {% if image != None %} <!-- Drink unlocked -->
-      <!-- Containers -->
-      <div class="main-container-wrapper100 rewards-expiredContainer">
-        <div class="container-contact100 text-center rewards-vertical-center" id="userContainer">
-          <div class="wrap-contact100" id="userWrapper">
-            
-            <!-- Content -->
-            <h1 class="contact100-form-title">
-              Free Drink!
-            </h1>
-            <div class="rewards-img-container">
-              <p class="rewards-explainer">
-                {{user.firstName}}, you just earned
-                a <span style="font-weight: bold">free medium drink! </span>
-                To claim it, just go to the Spoonholder between
-                <span style="font-style: italic"> this Friday at 10am and next Thursday </span>
-                and give the barista your email &#x1F601;
-              </p>          
+    {% if unlocked %} <!-- Reward unlocked --> 
 
-              <img class="rewards-image" src="{% static image %}">
-              <p class="streak-fires">
-                {% for i in loopRange %}
-                  &#x1F525;
-                {% endfor %}
-              </p>
-              <h5 class="streak-subtitle">
-                {{rewards.streakPoints}} Week Streak {{streakPlural}}!
-              </h5>
-            </div>
-            
-            <p class="rewards-ending-paragraph">
-              Keep an eye on your text messages for the next survey link!
-            </p>
+      {% include "./partial/_reward_unlocked.html" %}  
 
-            <hr class="footer-hr">
-            <p class="footer" > Email any questions to:
-              <a href="mailto: scp002@morningside.edu" style="font-style: italic">scp002@morningside.edu </a>
-            </p>
+    {% else %} <!-- No reward yet -->
 
-          </div> <!-- End Wrapper -->
-        </div>  <!-- End Rewards Info -->        
-      </div> <!-- Ends Main Container -->  
+      {% include "./partial/_no_reward.html" %}
 
-    {% else %} <!-- No drink yet -->
-      <!-- Containers -->
-      <div class="main-container-wrapper100 expiredContainer">
-        <div class="container-contact100 text-center vertical-center" id="userContainer">
-          <div class="wrap-contact100" id="userWrapper">
-
-            <!-- Content -->
-            <h1 class="contact100-form-title">
-              Response Recorded!
-            </h1>
-            <p>
-              {{user.firstName}}, your response has been recorded! </br>
-            </p>
-
-            <!--Summary Container-->
-            <div class="rewards-summary-container">
-              <h5 class="rewards-subtitle">
-                &#x2615; You're halfway there &#x2615;
-              </h5>
-              <p>
-                  One more response this week and you earn a free drink!
-              </p>
-
-              <!--Streak Points-->
-              <p class="streak-fires-in-container">
-                {% for i in loopRange %}
-                  &#x1F525;
-                {% endfor %}
-              </p>
-              <h5 class="streak-subtitle">
-                {{rewards.streakPoints}} Week Streak {{streakPlural}}!
-              </h5>
-
-            </div>
-
-            <p class="center-paragraph">
-              Keep an eye on your text messages for the next survey link!
-            </p>  
-          
-            <hr class="footer-hr">
-            <p class="footer" > Email any questions to:
-              <a href="mailto: scp002@morningside.edu" style="font-style: italic">scp002@morningside.edu </a>
-            </p>
-
-          </div> <!-- End Wrapper -->
-        </div>  <!--End Rewards Info-->
-      </div> <!-- Ends Main Container -->
     {% endif %}
   </body>
 </html>

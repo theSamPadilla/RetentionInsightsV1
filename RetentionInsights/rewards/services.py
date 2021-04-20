@@ -12,6 +12,7 @@ class RewardService(object):
     studyIDToReportFolder = {
         1 : "test/",
         2 : "Morningside_Pilot/",
+        3 : "Sioux_Rubber_Pilot/"
     }
 
 ############################
@@ -28,22 +29,31 @@ class RewardService(object):
         #Initialize response dictionary
         usersWithReward = {}
 
-        #Get each user with 2 weekly responses
-        for i in range(0, len(users)):
-            user = users[i]
-            userRewards = Reward.objects.get(userID = user.userID)
+        #Reward Cases
+        #!Two surveys per week: Morningside, Sioux Rubber, Test
+        if studyID in (1, 2, 3):
+            #Get each user with 2 weekly responses
+            for i in range(0, len(users)):
+                user = users[i]
+                userRewards = Reward.objects.get(userID = user.userID)
 
-            if userRewards.weeklyResponses == 2:
-                usersWithReward[i] = [user.firstName, user.email]
+                if userRewards.weeklyResponses == 2:
+                    usersWithReward[i] = [user.firstName, user.email, user.userGroup]
                 
         #Make pandas df
-        df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email'])
+        df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email', 'Position'])
 
-        # Sort alphabetically and organize indexes
+        #Sort alphabetically and reset indexes
         df.sort_values(by='Name', inplace=True)
         df.reset_index(drop=True, inplace=True)
-        df.index += 1
 
+        #Check if all users completed the surveys
+        if users.count() == len(usersWithReward):
+            df = df.append({"Name": "All participants completed their surveys", "Email":"", "Position":""}, ignore_index=True)
+
+        #Readjust indexes
+        df.index += 1
+        
         #Export to Excel file to appropriate Folder
         path = "/home/sam/RetentionInsightsV1/reports/rewards/" + reportFolder
         filename = path + str(date.today()) + ".xlsx"
@@ -51,27 +61,44 @@ class RewardService(object):
 
         return True
 
-    # Valid only for Morningside College Reward Rules #
     @staticmethod
     def UpdateRewardsForStudyID(studyID):
         #Get all the users for this studyID
         users = User.objects.filter(studyID = studyID)
 
         #Iterate through the users and update rewards
-        for user in users:
-            userRewards = Reward.objects.get(userID = user.userID)
-            
-            #Zero streak points.
-            #? If the user didn't answer any surveys this week, he loses his streak
-            if userRewards.weeklyResponses == 0:
-                userRewards.streakPoints = 0
-            
-            #Zero weekly rewards
-            userRewards.weeklyResponses = 0
+        #!Morningside Rules
+        if studyID == 2:
+            for user in users:
+                userRewards = Reward.objects.get(userID = user.userID)
+                
+                #Zero streak points.
+                #? If the user didn't answer ANY surveys this week, he loses his streak
+                if userRewards.weeklyResponses == 0:
+                    userRewards.streakPoints = 0
+                
+                #Zero weekly rewards
+                userRewards.weeklyResponses = 0
 
-            #Save changes
-            userRewards.save()
+                #Save changes
+                userRewards.save()
         
+        #!Sioux Rubber and Test
+        elif studyID in (1, 3):
+            for user in users:
+                userRewards = Reward.objects.get(userID = user.userID)
+                
+                #Zero streak points.
+                #? If the user didn't answer ALL surveys this week, he loses his streak
+                if userRewards.weeklyResponses != 2:
+                    userRewards.streakPoints = 0
+                
+                #Zero weekly rewards
+                userRewards.weeklyResponses = 0
+
+                #Save changes
+                userRewards.save()
+
         return True
 
 ###############

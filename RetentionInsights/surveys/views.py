@@ -25,7 +25,7 @@ surveyService = SurveyService()
 def GetSurvey(request, token):
     #Validate the Survey exsts or raise 404
     survey = get_object_or_404(Survey, token=token)
-
+    
     #Get survey context from service
     context = surveyService.GetSurveyContext(survey)
 
@@ -35,11 +35,13 @@ def GetSurvey(request, token):
 
     #Ensure survey has not been completed
     if (surveyService.IsSurveyCompleted(survey.surveyID)):
-        return render(request, 'surveys/completed.html', {'user' : survey.userID, 'survey' : survey} )
+        studyID = surveyService.GetStudyIDFromSurveyID(survey.surveyID)
+        return render(request, 'surveys/completed.html', {'user' : survey.userID, 'survey' : survey, 'studyID': studyID} )
 
     #Check if survey has Expired
     if (surveyService.IsSurveyExpired(survey.surveyID)):
-        return render(request, 'surveys/expired.html', {'user' : survey.userID, 'survey' : survey})
+        studyID = surveyService.GetStudyIDFromSurveyID(survey.surveyID)
+        return render(request, 'surveys/expired.html', {'user' : survey.userID, 'survey' : survey, 'studyID': studyID})
 
     return render(request, 'surveys/index.html', context)
 
@@ -76,7 +78,8 @@ def SubmitResponse(request, token):
     # Create response objects and catch error
     if (not surveyService.CreateResponses(answers)):
         error = "Invalid Data Submitted"
-        return render(request, 'surveys/error.html', {'error': error})
+        studyID = surveyService.GetStudyIDFromSurveyID(surveyID)
+        return render(request, 'surveys/error.html', {'error': error, 'studyID': studyID})
     
     # Mark Survey as Completed
     surveyService.UpdateSurvey(surveyID)

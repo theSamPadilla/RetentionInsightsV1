@@ -10,6 +10,16 @@ class SurveyService(object):
 # GET Objects #
 ###############
     @staticmethod
+    def GetStudyIDFromSurveyID(surveyID):
+        user = Survey.objects.get(pk = surveyID).userID
+        return user.studyID.studyID
+    
+    @staticmethod
+    def GetStudyIDFromUserID(userID):
+        user = User.objects.get(pk = userID)
+        return user.studyID.studyID
+ 
+    @staticmethod
     def GetSurveyIDFromToken(token):
         survey = Survey.objects.get(token=token)
         return survey.surveyID
@@ -43,42 +53,46 @@ class SurveyService(object):
         rewards = SurveyService.GetRewardsForUserID(user.userID)
         questions = SurveyService.GetSurveyQuestions(survey.surveyID)
 
-        #Get weekly responses text:
-        if rewards.weeklyResponses == 1:
-            plural = "response"
-        else:
-            plural = "responses"
-
         #Return context
-        return { 'survey': survey,
+        return {
+            'survey': survey,
             'user': user,
             'questions': questions,
-            'streakPoints' : rewards.streakPoints,
-            'missingResponses' : 2- rewards.weeklyResponses,
-            'plural' : plural,
+            'rewards' : rewards,
         }
 
     @staticmethod
     def GetRecordedPageContextFromToken(token):
         user = SurveyService.GetUserFromSurveyToken(token)
         rewards = SurveyService.GetRewardsForUserID(user.userID)
+        studyID = user.studyID.studyID
         image = None
-        plural = "Points"
+        unlocked = False
         
         #Make week streak plural
         if rewards.streakPoints < 2:
             plural = "Point"
 
-        #Get reward image if they have 2 points 
-        if rewards.weeklyResponses == 2:
-            image = "/surveys/img/img-" + str(randint(1, 14)) + ".jpg" 
+        #Verify if the user has unlocked the rewards
+        #!Morningside or test - reward every 2 weekly responses
+        if studyID == 2 or studyID == 1:
+            if rewards.weeklyResponses == 2:
+                image = "/surveys/img/morningside/img-" + str(randint(1, 14)) + ".jpg" 
+                unlocked = True
+
+        #!Sioux Rubber - reward every 8 monthly responses
+        elif studyID == 3:
+            #Reward ulocked
+            if rewards.streakPoints == 8:
+                image = "/surveys/img/sioux_rubber/reward/srb-mney-" + str(randint(1, 5)) + ".jpg" 
+                unlocked = True
 
         return {
             'user' : user,
             'rewards' : rewards,
+            'studyID' : studyID,
+            'unlocked' : unlocked,
             'image' : image,
-            'streakPlural' : plural,
-            'loopRange' : range(0, rewards.streakPoints)
         }
 
 ####################
@@ -145,11 +159,18 @@ class SurveyService(object):
         #Update total responses
         rewards = Reward.objects.get(pk = userID)
         rewards.totalResponses += 1
+
+        #Get Study ID
+        studyID = SurveyService.GetStudyIDFromUserID(userID)
         
-        #Update Streak Points
+        #Update Streak Points for non Morningside users everytime
+        if studyID != 2:
+            rewards.streakPoints += 1
+        
+        #!Morningside only rule
         #? If the user's weeklyResponse is greater than 0, he already got
         #? the strak points for the week 
-        if rewards.weeklyResponses == 0:
+        elif rewards.weeklyResponses == 0:
             rewards.streakPoints += 1
 
         #Update Weekly rewards

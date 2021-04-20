@@ -1,0 +1,62 @@
+{% load reward_summary_tags %}
+
+<!--Test Study (ID=1) -> Same as Sioux Rubber -->
+{%if user.studyID.studyID == 1%}
+    <div class="rewards-summary-container">
+        <h5 class="rewards-subtitle">Rewards Summary</h5>
+        <p class="rewards-summary">
+
+            <!-- Reward Rule: $25 gift card for 8 monthly responses -->
+            {% for i in rewards.streakPoints|range %}
+                &#x1F525;
+            {% endfor %}
+            <br>
+            <b>{{"8"|sub:rewards.streakPoints}}</b> more <i>consecutive</i>
+            {{rewards.streakPoints|plural:user.studyID.studyID}} to get your
+            <b>$25 gift card!</b> &#x1F4B3;
+
+        </p>
+        <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">
+            {{user.studyID.studyID|completed:survey.surveyID}} co-workers have completed this survey.
+        </p>
+    </div>
+    
+<!--Morningside Pilot (ID=2)-->
+{% elif user.studyID.studyID == 2 %}
+    <div class="rewards-summary-container">
+        <h5 class="rewards-subtitle">Rewards Summary</h5>
+        <p class="rewards-summary">
+            
+            <!-- Reward Rule: Free Coffee every 2 weekly responses -->
+            Free &#x2615; in <span style="font-weight:bold"> {{"2"|sub:rewards.weeklyResponses}}</span>
+            {{rewards.weeklyResponses|plural:user.studyID.studyID}}! </br>
+            Week Streak: <span style="font-weight:bold"> {{rewards.streakPoints}}</span>&#x1F525;
+        
+        </p>
+        <p style="font-size: 11px; text-decoration:underline; margin-top: 15px;">
+            {{user.studyID.studyID|completed:survey.surveyID}} students have completed this survey.
+        </p>
+    </div>
+
+<!--Sioux Rubber Pilot (ID=3)-->
+{% elif user.studyID.studyID == 3 %}
+    <div class="rewards-summary-container">
+        <h5 class="rewards-subtitle">Rewards Summary</h5>
+        <p class="rewards-summary">
+
+            <!-- Reward Rule: $25 gift card for 8 monthly responses -->
+            {% for i in rewards.streakPoints|range %}
+                &#x1F525;
+            {% endfor %}
+            <br>
+            <b>{{"8"|sub:rewards.streakPoints}}</b> more <i>consecutive</i>
+            {{rewards.streakPoints|plural:user.studyID.studyID}} to get your
+            <b>$25 gift card!</b> &#x1F4B3;
+
+        </p>
+        <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">
+            {{user.studyID.studyID|completed:survey.surveyID}} co-workers have completed this survey.
+        </p>
+    </div>
+
+{% endif %}

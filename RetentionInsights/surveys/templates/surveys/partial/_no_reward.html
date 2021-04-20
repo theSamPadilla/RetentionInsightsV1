@@ -1,0 +1,142 @@
+{% load static %}
+{% load recorded_tags %}
+
+<!-- Containers -->
+<div class="main-container-wrapper100 rewards-expiredContainer">
+    <div class="container-contact100 text-center rewards-vertical-center" id="userContainer">
+        <div class="wrap-contact100" id="userWrapper">
+        
+            <!-- Test Content -->
+            {% if studyID == 1   %}
+                <h1 class="contact100-form-title">
+                    Response Recorded!
+                </h1>
+                <p>
+                    {{user.firstName}}, your response has been recorded! </br>
+                </p>
+
+                <!--Summary Container-->
+                <div class="rewards-summary-container">
+                    <h5 class="rewards-subtitle">
+                        Keep it up!
+                    </h5>
+                    <p style="margin-bottom: 10px;">
+                        {{"8"|sub:rewards.streakPoints}} more {{"8"|sub:rewards.streakPoints|plural}}
+                        this month and you get your $25 gift card!
+                    </p>
+
+                    <!--Streak Points-->
+                    <p class="streak-fires-in-container">
+                    {% for i in rewards.streakPoints|range %}
+                        &#x1F525;
+                    {% endfor %}
+                    </p>
+                    <p style="font-size: 12px; font-weight: bold;">
+                    {{rewards.streakPoints}} consecutive {{rewards.streakPoints|plural}} this month!
+                    </p>
+
+                </div>
+
+                <p class="center-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>  
+                
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
+            <!-- Morningside Content -->
+            {% elif studyID == 2 %}
+                <h1 class="contact100-form-title">
+                    Response Recorded!
+                </h1>
+                <p>
+                    {{user.firstName}}, your response has been recorded! </br>
+                </p>
+
+                <!--Summary Container-->
+                <div class="rewards-summary-container">
+                    <h5 class="rewards-subtitle">
+                    &#x2615; You're halfway there &#x2615;
+                    </h5>
+                    <p>
+                        One more response this week and you earn a free drink!
+                    </p>
+
+                    <!--Streak Points-->
+                    <p class="streak-fires-in-container">
+                    {% for i in rewards.streakPoints|range %}
+                        &#x1F525;
+                    {% endfor %}
+                    </p>
+                    <h5 class="streak-subtitle">
+                        {{rewards.streakPoints}} Week Streak!
+                    </h5>
+
+                </div>
+
+                <p class="center-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>  
+                
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
+
+            <!-- Sioux Rubber Content -->
+            {% elif studyID == 3 %}
+                <h1 class="contact100-form-title">
+                    Response Recorded!
+                </h1>
+                <p>
+                    {{user.firstName}}, your response has been recorded! </br>
+                </p>
+
+                <!--Summary Container-->
+                <div class="rewards-summary-container">
+                    <h5 class="rewards-subtitle">
+                        Keep it up!
+                    </h5>
+                    <p style="margin-bottom: 10px;">
+                        {{"8"|sub:rewards.streakPoints}} more {{"8"|sub:rewards.streakPoints|plural}}
+                        this month and you get your $25 gift card!
+                    </p>
+                    <p style="margin-bottom: 10px;">
+                        If all your co-workers complete the surveys this week,
+                        you'll all get brakfast pizza next Monday!
+                    </p>
+
+                    <!--Streak Points-->
+                    <p class="streak-fires-in-container">
+                    {% for i in rewards.streakPoints|range %}
+                        &#x1F525;
+                    {% endfor %}
+                    </p>
+                    <p style="font-size: 12px; font-weight: bold;">
+                    {{rewards.streakPoints}} consecutive {{rewards.streakPoints|plural}} this month!
+                    </p>
+
+                </div>
+
+                <p class="center-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>  
+                
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
+            {% endif %}
+
+            
+
+        </div> <!-- End Wrapper -->
+    </div>  <!--End Rewards Info-->
+</div> <!-- Ends Main Container -->

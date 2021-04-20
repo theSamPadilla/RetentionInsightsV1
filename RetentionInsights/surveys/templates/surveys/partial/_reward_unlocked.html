@@ -1,0 +1,107 @@
+{% load static %}
+{% load recorded_tags %}
+
+<!-- Containers -->
+<div class="main-container-wrapper100 rewards-expiredContainer">
+    <div class="container-contact100 text-center rewards-vertical-center" id="userContainer">
+        <div class="wrap-contact100" id="userWrapper">        
+        
+            <!-- Test Content -->
+            {% if studyID == 1 %}
+                <h1 class="contact100-form-title">
+                    $25 Gift Card!
+                </h1>
+                <div class="rewards-img-container">
+                    <p class="rewards-explainer">
+                        {{user.firstName}}, you just earned
+                        a <span style="font-weight: bold">$25 gift card!</span>
+                        <br>
+                        To claim it, just email Joe Wren at <b>joewren@siouxrubber.com</b> &#x1F601;
+                        <br>                    
+                    </p>          
+
+                    <img class="rewards-image" src="{% static image %}">
+                    <p class="streak-fires" style="font-size:16px; color: black">
+                        You have {{rewards.totalResponses}} total {{rewards.totalResponses|plural}}!
+                    </p>
+                </div>
+                
+                <p class="rewards-ending-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>
+
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
+            <!-- Morningside Content -->
+            {% elif studyID == 2 %}
+                <h1 class="contact100-form-title">
+                    Free Drink!
+                </h1>
+                <div class="rewards-img-container">
+                    <p class="rewards-explainer">
+                    {{user.firstName}}, you just earned
+                    a <span style="font-weight: bold">free medium drink! </span>
+                    To claim it, just go to the Spoonholder between
+                    <span style="font-style: italic"> this Friday at 10am and next Thursday </span>
+                    and give the barista your email &#x1F601;
+                    </p>          
+
+                    <img class="rewards-image" src="{% static image %}">
+                    <p class="streak-fires">
+                    {% for i in rewards.streakPoints|range %}
+                        &#x1F525;
+                    {% endfor %}
+                    </p>
+                    <h5 class="streak-subtitle">
+                    {{rewards.streakPoints}} Week Streak!
+                    </h5>
+                </div>
+                
+                <p class="rewards-ending-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>
+
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+            
+            <!-- Sioux Rubber Content -->
+            {% elif studyID == 3 %}
+                <h1 class="contact100-form-title">
+                    $25 Gift Card!
+                </h1>
+                <div class="rewards-img-container">
+                    <p class="rewards-explainer">
+                    {{user.firstName}}, you just earned
+                    a <span style="font-weight: bold">$25 gift card!</span>
+                    <br>
+                    To claim it, just email Joe Wren at <b>joewren@siouxrubber.com</b> &#x1F601;
+                    </p>          
+
+                    <img class="rewards-image" src="{% static image %}">
+                    <p class="streak-fires" style="font-size:16px; color: black">
+                        You have {{rewards.totalResponses}} total {{rewards.totalResponses|plural}}!
+                    </p>
+                </div>
+                
+                <p class="rewards-ending-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>
+
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
+            {% endif %}
+
+        </div> <!-- End Content Wrapper -->
+    </div>  <!-- End Rewards Info -->        
+</div> <!-- Ends Main Container -->
