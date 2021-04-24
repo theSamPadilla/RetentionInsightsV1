@@ -22,5 +22,6 @@ urlpatterns = [
     path('surveys/', include('surveys.urls')),
     path('rewards/', include('rewards.urls')),
     path('confirmation/', include('confirmation.urls')),
+    path('feedback/', include('feedback.urls')),
     path('admin/', admin.site.urls),
 ]

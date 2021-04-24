@@ -1,10 +1,13 @@
-from django.db import models #type: ignore
-from django.utils import timezone #type: ignore
+from django.db import models
+from django.utils import timezone
 
 class Study(models.Model):
     studyID = models.IntegerField(primary_key=True)
     studyName = models.CharField(max_length=200)
-    
+    organizationName = models.CharField(max_length=200)
+    contactPerson = models.CharField(max_length=200)
+    contactEmail = models.EmailField()
+    feedbackUrl = models.CharField(max_length=200, unique=True)
     
     #Display funtions
     def data_points(self):

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Survey Recorded</title>
+
+    <!-- Loading Bootstrap, JS, and Popper -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %} "></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- Template CSS Loads -->
+    <link rel="stylesheet" type="text/css" href="{% static 'template/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/util.css' %}">
+  	<link rel="stylesheet" type="text/css" href="{% static 'template/css/main.css' %}">
+    
+  </head>
+  
+  <body>
+    <!-- Containers -->
+<div class="main-container-wrapper100 feedback-expiredContainer">
+    <div class="container-contact100 text-center rewards-vertical-center" id="userContainer">
+        <div class="wrap-contact100" id="userWrapper">        
+        
+          <!-- Test Content -->
+          <h1 class="contact100-form-title">
+              Feedback Recorded!
+          </h1>
+          <div class="rewards-img-container">
+              <p class="rewards-explainer" style="color:#666666;">
+                Thank you so much for your feedback.
+                Your anonymous message is on its way to {{person}}.
+              </p>          
+
+              <img class="rewards-image" src="{% static image %}">
+              <p class="below-pic-paragraph">
+                  If you want to submit another feedback message, 
+                  <a href="{% url 'feedback:GetFeedbackPage' urlName %}" class="same-app-link">
+                    you can do so here.
+                  </a>
+              </p>
+          </div>
+          
+          <hr class="footer-hr">
+          <p class="footer" >
+              Email any questions to:
+              {{email}}
+          </p>
+
+        </div> <!-- End Content Wrapper -->
+      </div>  <!-- End Rewards Info -->        
+    </div> <!-- Ends Main Container -->
+  </body>
+</html>

@@ -729,7 +729,7 @@ textarea.input100 {
   }
 
   .rewards-expiredContainer {
-    height: 710px;
+    height: 670px;
   }
 }
 
@@ -740,5 +740,55 @@ textarea.input100 {
 
   .confirmation-expiredContainer {
     height: 810px;
+  }
+}
+
+/*------------------------------------------------------------------
+[ Feedback Page ]*/
+
+.wrap-feedback {
+  width: 500px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 30px 20px;
+}
+
+@media (max-width: 576px) {
+  .wrap-expired {
+    width: 500px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 40px 15px 20px;
+  }
+}
+
+.feedback-input {
+  height: 120px;
+}
+
+.feedback-expiredContainer {
+  height: 100%;
+}
+
+.feedback-vertical-center {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@media (max-height: 639px) {
+  .feedback-vertical-center {
+    height: 100%;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .feedback-expiredContainer {
+    height: 690px;
   }
 }

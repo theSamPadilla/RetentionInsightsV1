@@ -158,6 +158,7 @@ $(window).on("load", function () {
 
 
         //This Grabs the parent of wrapInput -> wrap-contact100
+        //Note it grabs the parent itself, not by the class wrap-contact100
         var parent = wrapInput.parent();
 
         // Find the alert span and triggers alert sign
@@ -178,6 +179,7 @@ $(window).on("load", function () {
         $(wrapInput).removeClass('alert-validate');
         
         //This Grabs the parent of wrapInput -> wrap-contact100
+        //Note it grabs the parent itself, not by the class wrap-contact100
         var parent = wrapInput.parent();
         
         // Find the alert span and remove alert sign adn has-error class

@@ -1,11 +1,10 @@
-# pylint: disable=relative-beyond-top-level
 # Django imports
-from django.http.response import HttpResponse # type: ignore
+from django.http.response import HttpResponse
 from django.shortcuts import render, get_object_or_404 # type: ignore
 from django.http import HttpResponseRedirect # type: ignore
 from django.views.decorators.http import require_GET, require_POST #type: ignore
-from django.urls import reverse  # type: ignore
-from django.views.decorators.cache import never_cache # type: ignore
+from django.urls import reverse
+from django.views.decorators.cache import never_cache
 
 # My imports
 from .services import SurveyService
