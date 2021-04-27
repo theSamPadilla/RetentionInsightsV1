@@ -69,10 +69,6 @@ class SurveyService(object):
         image = None
         unlocked = False
         
-        #Make week streak plural
-        if rewards.streakPoints < 2:
-            plural = "Point"
-
         #Verify if the user has unlocked the rewards
         #!Morningside or test - reward every 2 weekly responses
         if studyID == 2 or studyID == 1:
@@ -84,13 +80,21 @@ class SurveyService(object):
         elif studyID == 3:
             #Reward ulocked
             if rewards.streakPoints == 8:
-                image = "/surveys/img/sioux_rubber/reward/srb-mney-" + str(randint(1, 5)) + ".jpg" 
+                image = "/surveys/img/tegra/reward/mney-" + str(randint(1, 5)) + ".jpg" 
+                unlocked = True
+
+        #!Warehouse - reward every 2 consecutive responses
+        elif studyID == 4:
+            #Reward ulocked
+            if rewards.streakPoints == 2:
+                image = "/surveys/img/tegra/reward/mney-" + str(randint(1, 5)) + ".jpg" 
                 unlocked = True
 
         return {
             'user' : user,
             'rewards' : rewards,
             'studyID' : studyID,
+            'study' : user.studyID,
             'unlocked' : unlocked,
             'image' : image,
         }

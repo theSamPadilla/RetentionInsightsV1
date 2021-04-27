@@ -27,16 +27,16 @@ the spreadsheet.
 import pandas as pd
 from surveys.models import Question_Text, Factor #type: ignore
 
-# Check if study already has factors
+# Check if study already has questions
 #!Keep this warning updated.
-factors = Factor.objects.filter(studyID = 3).count()
-if factors > 0:
-    print ("WARNING: This study already has factors.\n",
+existingQs = Question_Text.objects.filter(factorID__studyID = 4).count()
+if existingQs > 0:
+    print ("WARNING: This study already has questions.\n",
         "\tIf you want to proceed, remove this warning in the code.")
     exit()
 
 # Grab list of questions from file
-filename = "SiouxRubber_Questions.xlsx"
+filename = "Warehouse_Questions.xlsx"
 df = pd.read_excel(filename)
 
 # Grab starting ID (highest questionTextID + 1) 

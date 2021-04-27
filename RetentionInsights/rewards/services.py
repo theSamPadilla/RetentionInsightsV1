@@ -12,7 +12,8 @@ class RewardService(object):
     studyIDToReportFolder = {
         1 : "test/",
         2 : "Morningside_Pilot/",
-        3 : "Sioux_Rubber_Pilot/"
+        3 : "Sioux_Rubber_Pilot/",
+        4 : "Warehouse_Pilot/"
     }
 
 ############################
@@ -30,8 +31,8 @@ class RewardService(object):
         usersWithReward = {}
 
         #Reward Cases
-        #!Two surveys per week: Morningside, Sioux Rubber, Test
-        if studyID in (1, 2, 3):
+        #!Two surveys per week - Reward ulocked weekly: Morningside, Test
+        if studyID in (1, 2):
             #Get each user with 2 weekly responses
             for i in range(0, len(users)):
                 user = users[i]
@@ -39,27 +40,51 @@ class RewardService(object):
 
                 if userRewards.weeklyResponses == 2:
                     usersWithReward[i] = [user.firstName, user.email, user.userGroup]
-                
-        #Make pandas df
-        df = pd.DataFrame.from_dict(usersWithReward, orient='index', columns=['Name', 'Email', 'Position'])
-
-        #Sort alphabetically and reset indexes
-        df.sort_values(by='Name', inplace=True)
-        df.reset_index(drop=True, inplace=True)
-
-        #Check if all users completed the surveys
-        if users.count() == len(usersWithReward):
-            df = df.append({"Name": "All participants completed their surveys", "Email":"", "Position":""}, ignore_index=True)
-
-        #Readjust indexes
-        df.index += 1
         
-        #Export to Excel file to appropriate Folder
-        path = "/home/sam/RetentionInsightsV1/reports/rewards/" + reportFolder
-        filename = path + str(date.today()) + ".xlsx"
-        df.to_excel(filename)
+        #!Two surveys per week - Reward every month (8 responses): Sioux RUbber
+        elif studyID == 3:
+            #Define completed dic
+            completed = {}
 
-        return True
+            #Check users who completed the survey this week AND those who got a reward
+            for i in range(0, len(users)):
+                user = users[i]
+                userRewards = Reward.objects.get(userID = user.userID)
+
+                #Reward unlocked
+                if userRewards.streakPoints == 8:
+                    usersWithReward[i] = [user.firstName, user.email, user.userGroup]
+
+                #Surveys completed
+                if userRewards.weeklyResponses == 2:
+                    completed[i] = [user.firstName, user.email, user.userGroup]
+
+            #Build extra report for completed
+            RewardService.BuildReport(completed, users.count(), reportFolder, "week-completion-")
+
+        #!One survey per week - Reward every 2 weeks: Tegra Warehouse
+        elif studyID == 4:
+            #Define completed dic
+            completed = {}
+
+            #Check users who completed the survey this week AND those who got a reward
+            for i in range(0, len(users)):
+                user = users[i]
+                userRewards = Reward.objects.get(userID = user.userID)
+
+                #Reward unlocked
+                if userRewards.streakPoints == 2:
+                    usersWithReward[i] = [user.firstName, user.email, user.userGroup]
+
+                #Surveys completed
+                if userRewards.weeklyResponses == 1:
+                    completed[i] = [user.firstName, user.email, user.userGroup]
+
+            #Build extra report for completed
+            RewardService.BuildReport(completed, users.count(), reportFolder, "week-completion-")
+
+        #Build report for unlocked reward
+        RewardService.BuildReport(usersWithReward, None, reportFolder, "reward-unlocked-")
 
     @staticmethod
     def UpdateRewardsForStudyID(studyID):
@@ -93,6 +118,30 @@ class RewardService(object):
                 if userRewards.weeklyResponses != 2:
                     userRewards.streakPoints = 0
                 
+                #? The user got his reward this week (8 responses). Restart count
+                if userRewards.streakPoints == 8:
+                    userRewards.streakPoints = 0
+
+                #Zero weekly rewards
+                userRewards.weeklyResponses = 0
+
+                #Save changes
+                userRewards.save()
+
+        #!Warehouse
+        elif studyID == 4:
+            for user in users:
+                userRewards = Reward.objects.get(userID = user.userID)
+                
+                #Zero streak points.
+                #? If the user didn't answer THE surveys this week, he loses his streak
+                if userRewards.weeklyResponses != 1:
+                    userRewards.streakPoints = 0
+                
+                #? The user got his reward this week (2 responses). Restart count
+                if userRewards.streakPoints == 2:
+                    userRewards.streakPoints = 0
+
                 #Zero weekly rewards
                 userRewards.weeklyResponses = 0
 
@@ -156,3 +205,27 @@ class RewardService(object):
                 print ("IP Address",ip)
         
         return ip
+
+#################
+# OTHER Methods #
+#################
+    @staticmethod
+    def BuildReport(rewardDic, totalParticipants, reportFolder, reportName):
+        #Make pandas df
+        df = pd.DataFrame.from_dict(rewardDic, orient='index', columns=['Name', 'Email', 'Position'])
+
+        #Sort alphabetically and reset indexes
+        df.sort_values(by='Name', inplace=True)
+        df.reset_index(drop=True, inplace=True)
+
+        #Check if all users completed the surveys (only relevant for completion reports)
+        if totalParticipants == len(rewardDic):
+            df = df.append({"Name": "All participants completed their surveys this week", "Email":"", "Position":""}, ignore_index=True)
+
+        #Readjust indexes
+        df.index += 1
+        
+        #Export to Excel file to appropriate Folder
+        path = "/home/sam/RetentionInsightsV1/reports/rewards/" + reportFolder
+        filename = path + reportName + str(date.today()) + ".xlsx"
+        df.to_excel(filename)

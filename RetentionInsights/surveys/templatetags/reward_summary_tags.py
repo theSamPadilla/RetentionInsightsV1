@@ -36,16 +36,19 @@ def isPlural(responses, studyID):
             return "response"
         else:
             return "responses"
+    
+    #Sioux Rubber - Reward every MONTH for 8 responses
+    elif studyID == 4:
+        if responses == 1:
+            return "response"
+        else:
+            return "responses"
 
 #How many study mates have completed the survey
 def partenersCompleted(studyID, surveyID):
     #Get survey creation time
     created = Survey.objects.get(pk=surveyID).creationDate.date()
     oneDayLater = created + timedelta(hours=24)
-
-    print(studyID)
-    print(surveyID)
-    print(created)
 
     #Count all surveys with the studyID, created in the same day, and completed    
     return Survey.objects.filter(userID__studyID = studyID, creationDate__gt = created,

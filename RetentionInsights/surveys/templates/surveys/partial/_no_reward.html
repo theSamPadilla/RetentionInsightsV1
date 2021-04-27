@@ -103,7 +103,7 @@
                         Keep it up!
                     </h5>
                     <p style="margin-bottom: 10px;">
-                        {{"8"|sub:rewards.streakPoints}} more {{"8"|sub:rewards.streakPoints|plural}}
+                        <b>{{"8"|sub:rewards.streakPoints}} more {{"8"|sub:rewards.streakPoints|plural}} </b>
                         this month and you get your $25 gift card!
                     </p>
                     <p style="margin-bottom: 10px;">
@@ -133,10 +133,55 @@
                     {% include "./_contact_email.html" %}
                 </p>
 
+
+            <!-- Warehouse Content -->
+            {% elif studyID == 4 %}
+                <h1 class="contact100-form-title">
+                    Response Recorded!
+                </h1>
+                <p>
+                    {{user.firstName}}, your response has been recorded! </br>
+                </p>
+
+                <!--Summary Container-->
+                <div class="rewards-summary-container">
+                    <h5 class="rewards-subtitle">
+                        Keep it up!
+                    </h5>
+                    <p style="margin-bottom: 20px;">
+                        <b>{{"2"|sub:rewards.streakPoints}} more {{"2"|sub:rewards.streakPoints|plural}} </b>
+                        this month and you get your $10 gift card!
+                    </p>
+                    <p style="margin-bottom: 10px;">
+                        If all your co-workers complete the surveys this month,
+                        you'll all get a free meal next month!
+                    </p>
+
+                    <!--Streak Points-->
+                    <p class="streak-fires-in-container">
+                    {% for i in rewards.totalResponses|range %}
+                        &#x1F525;
+                    {% endfor %}
+                    </p>
+                    <p style="font-size: 12px; font-weight: bold;">
+                    You have {{rewards.totalResponses}} total {{rewards.totalResponses|plural}} so far!
+                    </p>
+
+                </div>
+
+                <p class="center-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>  
+                
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
             {% endif %}
 
             
-
         </div> <!-- End Wrapper -->
     </div>  <!--End Rewards Info-->
 </div> <!-- Ends Main Container -->

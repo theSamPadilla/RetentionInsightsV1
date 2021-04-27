@@ -35,7 +35,9 @@ class User(models.Model):
     active_p = models.BooleanField(default=False)
     removed_p = models.BooleanField(default=False)
     age = models.IntegerField(default=None, blank=True, null=True)
+    birthDate = models.DateField(default=None, blank=True, null=True)
     employmentTime = models.DurationField(default=None, blank=True, null=True)
+    hireDate = models.DateField(default=None, blank=True, null=True)
 
     #Display name
     def total_responses(self):

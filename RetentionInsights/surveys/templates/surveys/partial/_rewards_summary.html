@@ -1,7 +1,7 @@
 {% load reward_summary_tags %}
 
 <!--Test Study (ID=1) -> Same as Sioux Rubber -->
-{%if user.studyID.studyID == 1%}
+{% if user.studyID.studyID == 1 %}
     <div class="rewards-summary-container">
         <h5 class="rewards-subtitle">Rewards Summary</h5>
         <p class="rewards-summary">
@@ -52,6 +52,27 @@
             <b>{{"8"|sub:rewards.streakPoints}}</b> more <i>consecutive</i>
             {{rewards.streakPoints|plural:user.studyID.studyID}} to get your
             <b>$25 gift card!</b> &#x1F4B3;
+
+        </p>
+        <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">
+            {{user.studyID.studyID|completed:survey.surveyID}} co-workers have completed this survey.
+        </p>
+    </div>
+
+<!-- Big Soo Warehouse Study (ID=4) -->
+{% elif user.studyID.studyID == 4 %}
+    <div class="rewards-summary-container">
+        <h5 class="rewards-subtitle">Rewards Summary</h5>
+        <p class="rewards-summary">
+
+            <!-- Reward Rule: $10 gift card for 2 consecutive responses -->
+            {% for i in rewards.streakPoints|range %}
+                &#x1F525;
+            {% endfor %}
+            <br>
+            <b>{{"2"|sub:rewards.streakPoints}}</b> more <i>consecutive</i>
+            {{rewards.streakPoints|plural:user.studyID.studyID}} to get your
+            <b>$10 gift card!</b> &#x1F4B3;
 
         </p>
         <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">

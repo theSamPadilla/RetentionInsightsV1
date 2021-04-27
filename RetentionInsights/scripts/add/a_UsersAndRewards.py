@@ -48,15 +48,15 @@ def GetEmploymentTime(timestr):
 
 
 # Check if study already has users
-#!Keep this warning updated.
-factors = User.objects.filter(studyID = 3).count()
-if factors > 0:
-    print ("WARNING: This study already has factors.\n",
+#!Keep this warning updated. Warning for Warehouse = ID 4
+existingUsrs = User.objects.filter(studyID = 4).count()
+if existingUsrs > 0:
+    print ("WARNING: This study already has users.\n",
         "\tIf you want to proceed, remove this warning in the code.")
     exit()
 
 # Grab list of questions from file
-filename = "SiouxRubber_EmployeeList.xlsx"
+filename = "Warehouse_EmployeeList.xlsx"
 df = pd.read_excel(filename)
 
 # Grab starting ID (highest userID + 1) 
@@ -70,11 +70,13 @@ users = [(
         row.Phone,          #phoneNumber
         None,               #email
         row.Position,       #userGroup
-        3,                  #studyID #!SiouxRubber = 3
+        4,                  #studyID #!Warehouse = 4
         True,               #active_p
         False,              #removed_p
-        row.Age,            #age
-        GetEmploymentTime(row.EmploymentTime)
+        None,               #age
+        row.BirthDate,      #birthDate
+        None,               #employmentTime
+        row.HireDate        #hireDate
         ))
     for index, row in df.iterrows()
 ]
