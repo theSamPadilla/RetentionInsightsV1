@@ -22,6 +22,13 @@ class Study(models.Model):
     def surveys_sent(self):
         return str(Survey.objects.filter(userID__studyID = self.studyID).count())
 
+    def response_rate(self):
+        sent = int(self.surveys_sent())
+        resp = int(self.responses())
+        rate = (resp*100)/sent
+
+        return str(round(rate, 2)) + "%"
+
     def __str__(self):
         return self.studyName
 

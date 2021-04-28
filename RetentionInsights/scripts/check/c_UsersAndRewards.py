@@ -22,7 +22,8 @@ To check the above.
 from surveys.models import User, Reward, Survey #type: ignore
 
 # Grab students and rewards
-totalStudents = User.objects.filter(studyID = 2).count()
+studyID = 1
+totalStudents = User.objects.filter(studyID = studyID).count()
 
 # Check all students have rewards
 #for student in totalStudents:
@@ -30,13 +31,13 @@ totalStudents = User.objects.filter(studyID = 2).count()
   #      print("FUCK, ONE NON MATCHING REWARD")
    #     break
 
-rewards = Reward.objects.filter(userID__studyID = 2).count()
-activeStudents = User.objects.filter(studyID = 2, active_p = True).count()
-removedStudents = User.objects.filter(studyID = 2, active_p = False, removed_p = True).count()
-pendingStudents = User.objects.filter(studyID = 2, active_p = False, removed_p = False).count()
+rewards = Reward.objects.filter(userID__studyID = studyID).count()
+activeStudents = User.objects.filter(studyID = studyID, active_p = True).count()
+removedStudents = User.objects.filter(studyID = studyID, active_p = False, removed_p = True).count()
+pendingStudents = User.objects.filter(studyID = studyID, active_p = False, removed_p = False).count()
 
 #Print
-print("\nTotal students: %d" % totalStudents)
+print("\nTotal users: %d" % totalStudents)
 print("Rewards: %d" % rewards)
 
 print("\nActive: %d" % activeStudents)
