@@ -18,11 +18,10 @@
                 <!--Summary Container-->
                 <div class="rewards-summary-container">
                     <h5 class="rewards-subtitle">
-                        Keep it up!
+                    &#x2615; You're halfway there &#x2615;
                     </h5>
-                    <p style="margin-bottom: 10px;">
-                        {{"8"|sub:rewards.streakPoints}} more {{"8"|sub:rewards.streakPoints|plural}}
-                        this month and you get your $25 gift card!
+                    <p>
+                        One more response this week and you earn a free drink!
                     </p>
 
                     <!--Streak Points-->
@@ -31,9 +30,9 @@
                         &#x1F525;
                     {% endfor %}
                     </p>
-                    <p style="font-size: 12px; font-weight: bold;">
-                    {{rewards.streakPoints}} consecutive {{rewards.streakPoints|plural}} this month!
-                    </p>
+                    <h5 class="streak-subtitle">
+                        {{rewards.streakPoints}} Week Streak!
+                    </h5>
 
                 </div>
 
@@ -46,6 +45,7 @@
                     Email any questions to:
                     {% include "./_contact_email.html" %}
                 </p>
+
 
             <!-- Morningside Content -->
             {% elif studyID == 2 %}
@@ -155,6 +155,47 @@
                     <p style="margin-bottom: 10px;">
                         If all your co-workers complete the surveys this month,
                         you'll all get a free meal next month!
+                    </p>
+
+                    <!--Streak Points-->
+                    <p class="streak-fires-in-container">
+                    {% for i in rewards.totalResponses|range %}
+                        &#x1F525;
+                    {% endfor %}
+                    </p>
+                    <p style="font-size: 12px; font-weight: bold;">
+                    You have {{rewards.totalResponses}} total {{rewards.totalResponses|plural}} so far!
+                    </p>
+
+                </div>
+
+                <p class="center-paragraph">
+                    Keep an eye on your text messages for the next survey link!
+                </p>  
+                
+                <hr class="footer-hr">
+                <p class="footer" >
+                    Email any questions to:
+                    {% include "./_contact_email.html" %}
+                </p>
+
+            <!-- State Steel Content -->
+            {% elif studyID == 5 %}
+                <h1 class="contact100-form-title">
+                    Response Recorded!
+                </h1>
+                <p>
+                    {{user.firstName}}, your response has been recorded! </br>
+                </p>
+
+                <!--Summary Container-->
+                <div class="rewards-summary-container">
+                    <h5 class="rewards-subtitle">
+                        Keep it up!
+                    </h5>
+                    <p style="margin-bottom: 20px;">
+                        <b>{{rewards.totalResponses|mod:"4"|subR_L:"4"}} more {{rewards.totalResponses|mod:"4"|subR_L:"4"|plural}}</b>
+                        this month and you get your $10 gift card!
                     </p>
 
                     <!--Streak Points-->

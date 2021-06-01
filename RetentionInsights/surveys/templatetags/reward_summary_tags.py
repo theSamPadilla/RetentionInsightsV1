@@ -10,6 +10,18 @@ register = template.Library()
 def substract(leftHand, rightHand):
     return int(leftHand) - int(rightHand)
 
+#Right to Left Substractin filter
+def substract_right_to_left(leftHand, rightHand):
+    return int(rightHand) - int(leftHand)
+
+#Modulo filter
+def modulo(leftHand, rightHand):
+    print(leftHand)
+    print(rightHand)
+    print(int(leftHand) % int(rightHand))
+    return int(leftHand) % int(rightHand)
+
+
 #Loop filter
 def loopRange (value):
     return range(0, value)
@@ -43,6 +55,13 @@ def isPlural(responses, studyID):
             return "response"
         else:
             return "responses"
+    
+    #Sioux Rubber - Reward every 4 cumulative responses
+    elif studyID == 5:
+        if responses % 4 == 3:
+            return "response"
+        else:
+            return "responses"
 
 #How many study mates have completed the survey
 def partenersCompleted(studyID, surveyID):
@@ -56,6 +75,8 @@ def partenersCompleted(studyID, surveyID):
 
 # Registration #
 register.filter('sub', substract)
+register.filter('subR_L', substract_right_to_left)
+register.filter('mod', modulo)
 register.filter('range', loopRange)
 register.filter('plural', isPlural)
 register.filter('completed', partenersCompleted)

@@ -23,7 +23,9 @@ class Study(models.Model):
         return str(Survey.objects.filter(userID__studyID = self.studyID).count())
 
     def response_rate(self):
-        sent = int(self.surveys_sent())
+        #To avoid ZeroDivision error on new studys.
+        sent = int(self.surveys_sent()) if int(self.surveys_sent()) > 0 else 1
+        
         resp = int(self.responses())
         rate = (resp*100)/sent
 
@@ -45,6 +47,7 @@ class User(models.Model):
     birthDate = models.DateField(default=None, blank=True, null=True)
     employmentTime = models.DurationField(default=None, blank=True, null=True)
     hireDate = models.DateField(default=None, blank=True, null=True)
+    location = models.CharField(max_length=200, default=None, blank=True, null=True)
 
     #Display name
     def total_responses(self):

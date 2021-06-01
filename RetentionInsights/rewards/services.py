@@ -13,7 +13,8 @@ class RewardService(object):
         1 : "test/",
         2 : "Morningside_Pilot/",
         3 : "Sioux_Rubber_Pilot/",
-        4 : "Warehouse_Pilot/"
+        4 : "Warehouse_Pilot/",
+        5 : "State_Steel_Pilot/"
     }
 
 ############################
@@ -83,6 +84,27 @@ class RewardService(object):
             #Build extra report for completed
             RewardService.BuildReport(completed, users.count(), reportFolder, "week-completion-")
 
+        #!One survey per week - Reward every 4 cumulative responses: State Steel
+        elif studyID == 5:
+            #Define completed dic
+            completed = {}
+
+            #Check users who completed the survey this week AND those who got a reward
+            for i in range(0, len(users)):
+                user = users[i]
+                userRewards = Reward.objects.get(userID = user.userID)
+
+                #Reward unlocked
+                if userRewards.totalResponses != 0 and userRewards.totalResponses % 4 == 0:
+                    usersWithReward[i] = [user.firstName, user.email, user.userGroup]
+
+                #Surveys completed
+                if userRewards.weeklyResponses == 1:
+                    completed[i] = [user.firstName, user.email, user.userGroup]
+
+            #Build extra report for completed
+            RewardService.BuildReport(completed, users.count(), reportFolder, "week-completion-")
+
         #Build report for unlocked reward
         RewardService.BuildReport(usersWithReward, None, reportFolder, "reward-unlocked-")
 
@@ -134,12 +156,30 @@ class RewardService(object):
                 userRewards = Reward.objects.get(userID = user.userID)
                 
                 #Zero streak points.
-                #? If the user didn't answer THE surveys this week, he loses his streak
+                #? If the user didn't answer THE survey this week, he loses his streak
                 if userRewards.weeklyResponses != 1:
                     userRewards.streakPoints = 0
                 
                 #? The user got his reward this week (2 responses). Restart count
                 if userRewards.streakPoints == 2:
+                    userRewards.streakPoints = 0
+
+                #Zero weekly rewards
+                userRewards.weeklyResponses = 0
+
+                #Save changes
+                userRewards.save()
+
+        #!State Steel
+        elif studyID == 5:
+            for user in users:
+                userRewards = Reward.objects.get(userID = user.userID)
+
+                #Zero streak points.
+                #? If the user didn't answer THE survey this week, he loses his streak
+                #? Notice this has nothing to do with the reward. The reward for State Steel is
+                #?  only based on total responses
+                if userRewards.weeklyResponses != 1:
                     userRewards.streakPoints = 0
 
                 #Zero weekly rewards
@@ -155,7 +195,7 @@ class RewardService(object):
 ###############
     # Log Requests to both Check and Update endpoints
     @staticmethod
-    def LogRequest(request, verified, endpoint, status, error):
+    def LogRequest(request, verified, endpoint, status, error, studyID):
         #Get Client IP
         ip = RewardService.get_client_ip(request)
 
@@ -171,11 +211,11 @@ class RewardService(object):
 
         #Write log and close file
         if error != None:
-            f.write("\n%s token from IP %s on %s | Status: %s\r\nError: %s\n" %
-            (verified, ip, now, status, error))
+            f.write("\n%s token from IP %s on %s | Status: %s | StudyID: %d\r\nError: %s\n" %
+            (verified, ip, now, status, studyID, error))
         else:
-            f.write("\n%s token from IP %s on %s | Status: %s\r\n" %
-            (verified, ip, now, status))
+            f.write("\n%s token from IP %s on %s | Status: %s | StudyID: %d\r\n" %
+            (verified, ip, now, status, studyID))
         
         f.close()
 

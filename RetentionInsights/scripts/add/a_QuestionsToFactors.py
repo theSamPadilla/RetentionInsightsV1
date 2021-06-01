@@ -29,14 +29,14 @@ from surveys.models import Question_Text, Factor #type: ignore
 
 # Check if study already has questions
 #!Keep this warning updated.
-existingQs = Question_Text.objects.filter(factorID__studyID = 4).count()
+existingQs = Question_Text.objects.filter(factorID__studyID = 5).count()
 if existingQs > 0:
     print ("WARNING: This study already has questions.\n",
         "\tIf you want to proceed, remove this warning in the code.")
     exit()
 
 # Grab list of questions from file
-filename = "Warehouse_Questions.xlsx"
+filename = "StateSeel_Questions.xlsx"
 df = pd.read_excel(filename)
 
 # Grab starting ID (highest questionTextID + 1) 

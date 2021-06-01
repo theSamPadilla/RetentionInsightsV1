@@ -90,6 +90,13 @@ class SurveyService(object):
                 image = "/surveys/img/tegra/reward/mney-" + str(randint(1, 5)) + ".jpg" 
                 unlocked = True
 
+        #!State Steel - reward every 4 responses - cumulative
+        elif studyID == 5:
+            #Reward ulocked
+            if rewards.totalResponses != 0 and rewards.totalResponses % 4 == 0:
+                image = "/surveys/img/state-steel/state-steel-" + str(randint(1, 5)) + ".jpg" 
+                unlocked = True
+
         return {
             'user' : user,
             'rewards' : rewards,

@@ -16,7 +16,10 @@ DESCRIPTION:
 This script adds users and rewards to a given study based on an excel sheet.
 
 USAGE:
-To add new users.
+To add new users based on an excel sheet.
+The excel sheet has format (Name, Phone, BirthDate, HireDate, Position)
+If you want to add miscellaneous fields, add them at the end of the list.
+    Make the necessary adjustments in the models and in the code below.
 Delete the excel sheet after using it.
 Remember to Add rewards!
 Keep warnings updated.
@@ -48,15 +51,15 @@ def GetEmploymentTime(timestr):
 
 
 # Check if study already has users
-#!Keep this warning updated. Warning for Warehouse = ID 4
-existingUsrs = User.objects.filter(studyID = 4).count()
+#!Keep this warning updated. Warning for State Steel = ID 5
+existingUsrs = User.objects.filter(studyID = 5).count()
 if existingUsrs > 0:
     print ("WARNING: This study already has users.\n",
         "\tIf you want to proceed, remove this warning in the code.")
     exit()
 
 # Grab list of questions from file
-filename = "Warehouse_EmployeeList.xlsx"
+filename = "StateSteel_EmployeeList.xlsx"
 df = pd.read_excel(filename)
 
 # Grab starting ID (highest userID + 1) 
@@ -70,13 +73,14 @@ users = [(
         row.Phone,          #phoneNumber
         None,               #email
         row.Position,       #userGroup
-        4,                  #studyID #!Warehouse = 4
+        5,                  #studyID #!StateSteel = 5
         True,               #active_p
         False,              #removed_p
         None,               #age
         row.BirthDate,      #birthDate
         None,               #employmentTime
-        row.HireDate        #hireDate
+        row.HireDate,       #hireDate
+        row.Location        #location #!Specific to State Steel
         ))
     for index, row in df.iterrows()
 ]

@@ -1,23 +1,19 @@
 {% load reward_summary_tags %}
 
-<!--Test Study (ID=1) -> Same as Sioux Rubber -->
+<!--Test Study (ID=1) -> Same as Morningside -->
 {% if user.studyID.studyID == 1 %}
     <div class="rewards-summary-container">
         <h5 class="rewards-subtitle">Rewards Summary</h5>
         <p class="rewards-summary">
-
-            <!-- Reward Rule: $25 gift card for 8 monthly responses -->
-            {% for i in rewards.streakPoints|range %}
-                &#x1F525;
-            {% endfor %}
-            <br>
-            <b>{{"8"|sub:rewards.streakPoints}}</b> more <i>consecutive</i>
-            {{rewards.streakPoints|plural:user.studyID.studyID}} to get your
-            <b>$25 gift card!</b> &#x1F4B3;
-
+            
+            <!-- Reward Rule: Free Coffee every 2 weekly responses -->
+            Free &#x2615; in <span style="font-weight:bold"> {{"2"|sub:rewards.weeklyResponses}}</span>
+            {{rewards.weeklyResponses|plural:user.studyID.studyID}}! </br>
+            Week Streak: <span style="font-weight:bold"> {{rewards.streakPoints}}</span>&#x1F525;
+        
         </p>
-        <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">
-            {{user.studyID.studyID|completed:survey.surveyID}} co-workers have completed this survey.
+        <p style="font-size: 11px; text-decoration:underline; margin-top: 15px;">
+            {{user.studyID.studyID|completed:survey.surveyID}} students have completed this survey.
         </p>
     </div>
     
@@ -75,6 +71,31 @@
             <b>$10 gift card!</b> &#x1F4B3;
 
         </p>
+        <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">
+            {{user.studyID.studyID|completed:survey.surveyID}} co-workers have completed this survey.
+        </p>
+    </div>
+
+<!-- State Steel Study (ID=5) -->
+{% elif user.studyID.studyID == 5 %}
+    <div class="rewards-summary-container">
+        <h5 class="rewards-subtitle">Rewards Summary</h5>
+        <div class="rewards-summary">
+
+            <!-- Reward Rule: Casey's Pizza every 4 cumulative responses -->
+            <p style="font-size: 11px; margin-top: 1px;">
+                Consecutive responses:
+            </p>
+            {% for i in rewards.streakPoints|range %}
+                &#x1F525;
+            {% endfor %}
+            <p style="font-size: 16px; color: black; margin-top: 10px;">
+                <b>{{rewards.totalResponses|mod:"4"|subR_L:"4"}}</b> more
+                {{rewards.totalResponses|plural:user.studyID.studyID}} to get your
+                <b>free Casey's Pizza!</b> &#x1F4B3;
+            </p>
+
+        </div>
         <p style="font-size: 11px; text-decoration:underline; margin-top: 20px;">
             {{user.studyID.studyID|completed:survey.surveyID}} co-workers have completed this survey.
         </p>
