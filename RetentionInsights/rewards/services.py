@@ -1,6 +1,9 @@
+import os
+
 from django.utils import timezone # type: ignore
 from datetime import date
 import pandas as pd #type: ignore
+from django.core.mail import EmailMessage
 
 from surveys.models import User, Reward, Study #type: ignore
 
@@ -17,6 +20,9 @@ class RewardService(object):
         5 : "State_Steel_Pilot/"
     }
 
+    # Define Reward Dir
+    rewardDir = "/home/sam/RetentionInsightsV1/reports/rewards/"
+
 ############################
 # CHECK AND UPDATE Methods #
 ############################
@@ -25,8 +31,12 @@ class RewardService(object):
         #Get all the users with the StudyID
         users = User.objects.filter(studyID = studyID)
 
-        #Define studyPath
-        reportFolder = cls.studyIDToReportFolder[studyID]
+        #Grab the stuyd object
+        study = Study.objects.get(pk = studyID)
+
+        #Make new report directory
+        reportFolder = cls.rewardDir + cls.studyIDToReportFolder[studyID] + "Week " + str(study.week) + "/"
+        os.mkdir(reportFolder)
 
         #Initialize response dictionary
         usersWithReward = {}
@@ -34,6 +44,9 @@ class RewardService(object):
         #Reward Cases
         #!Two surveys per week - Reward ulocked weekly: Morningside, Test
         if studyID in (1, 2):
+            #Define completed dic
+            completed = {}
+            
             #Get each user with 2 weekly responses
             for i in range(0, len(users)):
                 user = users[i]
@@ -41,7 +54,11 @@ class RewardService(object):
 
                 if userRewards.weeklyResponses == 2:
                     usersWithReward[i] = [user.firstName, user.email, user.userGroup]
-        
+                    completed[i] = [user.firstName, user.email, user.userGroup]
+
+            #Build extra report for completed
+            RewardService.BuildReport(completed, users.count(), reportFolder, "week-completion-")
+
         #!Two surveys per week - Reward every month (8 responses): Sioux RUbber
         elif studyID == 3:
             #Define completed dic
@@ -188,6 +205,11 @@ class RewardService(object):
                 #Save changes
                 userRewards.save()
 
+        #Update study week
+        study = Study.objects.get(pk = studyID)
+        study.week += 1
+        study.save()
+
         return True
 
 ###############
@@ -266,6 +288,42 @@ class RewardService(object):
         df.index += 1
         
         #Export to Excel file to appropriate Folder
-        path = "/home/sam/RetentionInsightsV1/reports/rewards/" + reportFolder
-        filename = path + reportName + str(date.today()) + ".xlsx"
+        filename = reportFolder + reportName + str(date.today()) + ".xlsx"
         df.to_excel(filename)
+
+    @classmethod
+    def EamailReport(cls, studyID):
+        #Grab study
+        study = Study.objects.get(pk = studyID)
+
+        #Define email contents
+        subject = "Week " + str(study.week) + " Completion Reports"
+        greeting = "Hey " + study.contactPerson + ",\n\nHope this email finds you well and having a great day so far."
+        center = "\n\nThis is an automated email containing the completion reports for week " + str(study.week) + " of the study."
+        footer = "\n\nFeel free to reply to this email if you have any questions.\n\n--\nThe Retention Insights Team."
+        message = greeting + center + footer
+        
+        #Sender and receiver
+        sender = "padilla.samuelk@gmail.com"
+        receiver = [study.contactEmail]
+        
+        #Make email oject
+        email = EmailMessage(
+            subject = subject,
+            body = message,
+            from_email = sender,
+            to = receiver
+        )
+
+        #Get the file paths
+        reportFolder = cls.studyIDToReportFolder[studyID] + "Week " + str(study.week) + "/"
+        path = cls.rewardDir + reportFolder
+        completion = path + "week-completion-" + str(date.today()) + ".xlsx"
+        reward = path + "reward-unlocked-" + str(date.today()) + ".xlsx"
+
+        #Attach
+        email.attach_file(completion)
+        email.attach_file(reward)
+        
+        #Send
+        email.send(fail_silently=False)

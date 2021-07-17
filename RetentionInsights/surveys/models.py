@@ -8,6 +8,7 @@ class Study(models.Model):
     contactPerson = models.CharField(max_length=200)
     contactEmail = models.EmailField()
     feedbackUrl = models.CharField(max_length=200, unique=True)
+    week = models.IntegerField(default=0)
     
     #Display funtions
     def data_points(self):
@@ -16,11 +17,14 @@ class Study(models.Model):
     def responses(self):
         return Survey.objects.filter(userID__studyID = self.studyID, completed_p = True).count()
     
-    def active_participants(self):
+    def participants(self):
         return str(User.objects.filter(studyID = self.studyID, active_p = True).count())
 
     def surveys_sent(self):
         return str(Survey.objects.filter(userID__studyID = self.studyID).count())
+
+    def study_week(self):
+        return "Week " + str(self.week)
 
     def response_rate(self):
         #To avoid ZeroDivision error on new studys.
@@ -43,6 +47,8 @@ class User(models.Model):
     studyID = models.ForeignKey(Study, on_delete=models.CASCADE)
     active_p = models.BooleanField(default=False)
     removed_p = models.BooleanField(default=False)
+    fired_p = models.BooleanField(default=False)
+    resigned_p = models.BooleanField(default=False)
     age = models.IntegerField(default=None, blank=True, null=True)
     birthDate = models.DateField(default=None, blank=True, null=True)
     employmentTime = models.DurationField(default=None, blank=True, null=True)

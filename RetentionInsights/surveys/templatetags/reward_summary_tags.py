@@ -16,9 +16,6 @@ def substract_right_to_left(leftHand, rightHand):
 
 #Modulo filter
 def modulo(leftHand, rightHand):
-    print(leftHand)
-    print(rightHand)
-    print(int(leftHand) % int(rightHand))
     return int(leftHand) % int(rightHand)
 
 

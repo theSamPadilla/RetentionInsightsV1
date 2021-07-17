@@ -28,7 +28,9 @@ def CheckRewards (request, studyID, token):
 
     else:
         try:
+            #Check rewards, build report, and mail report
             rewardService.CheckRewardsForStudyID(studyID)
+            rewardService.EamailReport(studyID)
         
         except Exception as e:
             #Log check error.

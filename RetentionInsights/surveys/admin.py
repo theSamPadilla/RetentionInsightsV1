@@ -3,7 +3,7 @@ from .models import Study, User, Factor, Survey, Question_Text, Question, Respon
 
 #Customize displays
 class StudyAdmin(admin.ModelAdmin):
-    list_display = ('studyName', 'studyID', 'contactPerson', 'contactEmail', 'active_participants', 'surveys_sent', 'responses', 'response_rate', 'data_points')
+    list_display = ('studyName', 'studyID', 'contactPerson', 'contactEmail', 'participants', 'study_week', 'surveys_sent', 'responses', 'response_rate', 'data_points')
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('firstName', 'userID', 'active_p', 'total_responses', 'studyID', 'userGroup')
