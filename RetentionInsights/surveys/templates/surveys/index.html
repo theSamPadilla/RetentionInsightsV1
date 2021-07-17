@@ -55,9 +55,13 @@
               <div class="wrap-contact100 surveyQuestions"> <!-- Q. Wrapper -->
               
               <!-- Slider Questions -->
-              {%if question.type == 'S6'%}  
+              {%if question.type == 'S6'%}
                 <div class="wrap-input100 validate-input">
-                  <h3 class="label-input100">{{question.text}}</h3>
+                  {%if question.positive_p%}
+                    <h3 class="label-input100">{{question.text}}</h3>
+                  {%else%}
+                    <h3 class="label-input100" style="color: red">{{question.text}}</h3>
+                  {%endif%}
                   <div class="questionContainer">
                     <ul class="range-labels">
                       <li class="sliderLabel" id="sliderLabelLeft">1</li>
@@ -69,7 +73,13 @@
                       <li class="sliderLabel" id="sliderLabelRight">6</li>
                     </ul>
                     <input type="range" name="{{obj.questionID}}" id="sliderQ{{obj.questionID}}" class="form-range slider100" min="1" max="7" step="1" value="4"/>                
-                    <label for="sliderQ{{obj.questionID}}" class="explainer-label"> Rate your agreement with the statement </label>
+                    {%if question.positive_p == False%}
+                      <label for="sliderQ{{obj.questionID}}" style="color: red; font-size: 12px;">
+                      This is a <span style="text-decoration: underline">negative question</span>. 1 is good, 6 is bad.
+                      </label>
+                    {%else%}
+                      <label for="sliderQ{{obj.questionID}}" class="explainer-label"> Rate your agreement with the statement </label>
+                    {%endif%}
                   </div>                
                   <span class="focus-input100"></span>
                 </div>
